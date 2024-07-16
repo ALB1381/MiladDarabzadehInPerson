@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MiladDarabzadeh.Data.Entities.Course;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -30,7 +31,7 @@ namespace MiladDarabzadeh.Data.Entities.User
         public string UserNandF { get; set; }
 
         [Display(Name = "ایمیل")]
-        [MaxLength(60, ErrorMessage = "{0} نمیتواند بیشتر از {1} کارکتر باشد")]
+        [MaxLength(90, ErrorMessage = "{0} نمیتواند بیشتر از {1} کارکتر باشد")]
         [MinLength(4, ErrorMessage = "{0} نمیتواند کمتر از {1} کارکتر باشد")]
         [Column(TypeName = "nvarchar(90)")]
         public string? UserEmail { get; set; }
@@ -64,6 +65,8 @@ namespace MiladDarabzadeh.Data.Entities.User
         [Column(TypeName = "nvarchar(80)")]
         public string UserPassword { get; set; }
 
+        public DateOnly? BirthDate { get; set; }
+
         public bool IsActived { get; set; }
 
         #endregion
@@ -75,6 +78,8 @@ namespace MiladDarabzadeh.Data.Entities.User
         #region Relation
         [ForeignKey("RoleId")]
         public Role Role { get; set; }
+
+        public List<Course.Course>? TeacherCourses { get; set; }
         #endregion
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MiladDarabzadeh.Data.Entities.Course;
 using MiladDarabzadeh.Data.Entities.User;
 using MiladDarabzadeh.Data.Entities.User.Connections;
 using System;
@@ -20,6 +21,8 @@ namespace MiladDarabzadeh.Data.Context
         public DbSet<Role> Roles { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<RolePermissionConnection> RolePermissionConnections { get; set; }
+        public DbSet<Course> Courses { get; set; }
+        public DbSet<CourseGroup> CourseGroups { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

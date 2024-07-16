@@ -12,6 +12,7 @@ namespace MiladDarabzadeh.Data.Entities.User
     public class Permission
     {
         [Key]
+        [Column(TypeName = "TINYINT")]
         public int PermissionId { get; set; }
 
         [Display(Name = "عنوان دسترسی")]

@@ -12,7 +12,7 @@ using MiladDarabzadeh.Data.Context;
 namespace MiladDarabzadeh.Data.Migrations
 {
     [DbContext(typeof(MiladContext))]
-    [Migration("20240706165216_Mig-000")]
+    [Migration("20240716080056_Mig-000")]
     partial class Mig000
     {
         /// <inheritdoc />
@@ -25,6 +25,138 @@ namespace MiladDarabzadeh.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("MiladDarabzadeh.Data.Entities.Course.Course", b =>
+                {
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Certificate")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("CourseDescription")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CourseImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CourseName")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("CourseTags")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
+
+                    b.Property<string>("CourseUrl")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
+
+                    b.Property<string>("DemoFileName")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<int?>("DiscountId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FirstTimeMadeDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("LevelId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("LoanPayments")
+                        .HasColumnType("bit");
+
+                    b.Property<byte?>("MaxAge")
+                        .HasColumnType("TINYINT");
+
+                    b.Property<byte?>("MinAge")
+                        .HasColumnType("TINYINT");
+
+                    b.Property<string>("NamesOfTheBooks")
+                        .IsRequired()
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
+
+                    b.Property<byte?>("RangeOfIELTSInThisCourse")
+                        .HasColumnType("TINYINT");
+
+                    b.Property<byte?>("RangeOfListeningInThisCourse")
+                        .HasColumnType("TINYINT");
+
+                    b.Property<byte?>("RangeOfReadingInThisCourse")
+                        .HasColumnType("TINYINT");
+
+                    b.Property<byte?>("RangeOfSpeakingInThisCourse")
+                        .HasColumnType("TINYINT");
+
+                    b.Property<byte?>("RangeOfWritingInThisCourse")
+                        .HasColumnType("TINYINT");
+
+                    b.Property<string>("ShortDescription")
+                        .IsRequired()
+                        .HasMaxLength(250)
+                        .HasColumnType("nvarchar(250)");
+
+                    b.Property<int>("StatusId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SubGroupId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SupplementId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.Property<int>("TeacherId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TestId")
+                        .IsRequired()
+                        .HasColumnType("int");
+
+                    b.HasKey("CourseId");
+
+                    b.HasIndex("GroupId");
+
+                    b.HasIndex("SubGroupId");
+
+                    b.HasIndex("TeacherId");
+
+                    b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("MiladDarabzadeh.Data.Entities.Course.CourseGroup", b =>
+                {
+                    b.Property<int>("GroupId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("GroupId"));
+
+                    b.Property<string>("GroupTitle")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GroupId");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("CourseGroups");
+                });
+
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.User.Connections.RolePermissionConnection", b =>
                 {
                     b.Property<int>("RPCId")
@@ -33,8 +165,8 @@ namespace MiladDarabzadeh.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RPCId"));
 
-                    b.Property<int>("PermissionId")
-                        .HasColumnType("int");
+                    b.Property<byte>("PermissionId")
+                        .HasColumnType("TINYINT");
 
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
@@ -50,11 +182,11 @@ namespace MiladDarabzadeh.Data.Migrations
 
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.User.Permission", b =>
                 {
-                    b.Property<int>("PermissionId")
+                    b.Property<byte>("PermissionId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("TINYINT");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PermissionId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<byte>("PermissionId"));
 
                     b.Property<string>("PermissionTitle")
                         .IsRequired()
@@ -101,6 +233,9 @@ namespace MiladDarabzadeh.Data.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<DateOnly?>("BirthDate")
+                        .HasColumnType("date");
+
                     b.Property<bool>("IsActived")
                         .HasColumnType("bit");
 
@@ -121,7 +256,7 @@ namespace MiladDarabzadeh.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserEmail")
-                        .HasMaxLength(60)
+                        .HasMaxLength(90)
                         .HasColumnType("nvarchar(90)");
 
                     b.Property<string>("UserName")
@@ -167,7 +302,7 @@ namespace MiladDarabzadeh.Data.Migrations
                             UserNandF = "Milad Darabzadeh",
                             UserPassword = "62-D5-ED-C9-B0-AD-74-B5-AE-96-2E-5F-7F-C7-91-51",
                             UserPhoneNumber = "09139279581",
-                            UserRegisterDate = new DateTime(2024, 7, 6, 9, 52, 16, 169, DateTimeKind.Local).AddTicks(890)
+                            UserRegisterDate = new DateTime(2024, 7, 16, 1, 0, 56, 131, DateTimeKind.Local).AddTicks(2407)
                         },
                         new
                         {
@@ -182,8 +317,40 @@ namespace MiladDarabzadeh.Data.Migrations
                             UserNandF = "Ali Barzegar",
                             UserPassword = "0C-0B-33-26-C9-5A-66-D7-37-7A-0A-2F-75-DA-AC-34",
                             UserPhoneNumber = "09397894663",
-                            UserRegisterDate = new DateTime(2024, 7, 6, 9, 52, 16, 169, DateTimeKind.Local).AddTicks(900)
+                            UserRegisterDate = new DateTime(2024, 7, 16, 1, 0, 56, 131, DateTimeKind.Local).AddTicks(2413)
                         });
+                });
+
+            modelBuilder.Entity("MiladDarabzadeh.Data.Entities.Course.Course", b =>
+                {
+                    b.HasOne("MiladDarabzadeh.Data.Entities.Course.CourseGroup", "CourseGroup")
+                        .WithMany("GroupOfCourses")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("MiladDarabzadeh.Data.Entities.Course.CourseGroup", "CourseSubGroup")
+                        .WithMany("SubGroupsOfCourse")
+                        .HasForeignKey("SubGroupId");
+
+                    b.HasOne("MiladDarabzadeh.Data.Entities.User.User", "User")
+                        .WithMany("TeacherCourses")
+                        .HasForeignKey("TeacherId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CourseGroup");
+
+                    b.Navigation("CourseSubGroup");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MiladDarabzadeh.Data.Entities.Course.CourseGroup", b =>
+                {
+                    b.HasOne("MiladDarabzadeh.Data.Entities.Course.CourseGroup", null)
+                        .WithMany("courseGroups")
+                        .HasForeignKey("ParentId");
                 });
 
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.User.Connections.RolePermissionConnection", b =>
@@ -216,6 +383,15 @@ namespace MiladDarabzadeh.Data.Migrations
                     b.Navigation("Role");
                 });
 
+            modelBuilder.Entity("MiladDarabzadeh.Data.Entities.Course.CourseGroup", b =>
+                {
+                    b.Navigation("GroupOfCourses");
+
+                    b.Navigation("SubGroupsOfCourse");
+
+                    b.Navigation("courseGroups");
+                });
+
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.User.Permission", b =>
                 {
                     b.Navigation("Roles");
@@ -224,6 +400,11 @@ namespace MiladDarabzadeh.Data.Migrations
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.User.Role", b =>
                 {
                     b.Navigation("Permissions");
+                });
+
+            modelBuilder.Entity("MiladDarabzadeh.Data.Entities.User.User", b =>
+                {
+                    b.Navigation("TeacherCourses");
                 });
 #pragma warning restore 612, 618
         }
