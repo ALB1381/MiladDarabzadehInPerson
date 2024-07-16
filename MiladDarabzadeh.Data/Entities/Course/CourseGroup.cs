@@ -20,7 +20,7 @@ namespace MiladDarabzadeh.Data.Entities.Course
         [MinLength(4, ErrorMessage = "{0} نمیتواند کمتر از {1} کارکتر باشد")]
         [Column(TypeName = "nvarchar(50)")]
         public string GroupTitle { get; set; }
-
+        //note
 
         [Display(Name = "گروه اصلی")]
         public int? ParentId { get; set; }
