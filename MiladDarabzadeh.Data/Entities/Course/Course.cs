@@ -1,4 +1,5 @@
-﻿using MiladDarabzadeh.Data.Entities.User;
+﻿using MiladDarabzadeh.Data.Entities.Discount;
+using MiladDarabzadeh.Data.Entities.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -137,6 +138,11 @@ namespace MiladDarabzadeh.Data.Entities.Course
         [ForeignKey("SubGroupId")]
         public CourseGroup? CourseSubGroup { get; set; }
 
+        [ForeignKey("DiscountId")]
+        public CourseDiscount? CourseDiscount { get; set; }
+
+        [ForeignKey("LevelId")]
+        public CourseLevel CourseLevel { get; set; }
         #endregion
     }
 }
