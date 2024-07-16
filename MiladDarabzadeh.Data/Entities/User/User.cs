@@ -64,6 +64,8 @@ namespace MiladDarabzadeh.Data.Entities.User
         [Column(TypeName = "nvarchar(80)")]
         public string UserPassword { get; set; }
 
+        public DateOnly? BirthDate { get; set; }
+
         public bool IsActived { get; set; }
 
         #endregion
