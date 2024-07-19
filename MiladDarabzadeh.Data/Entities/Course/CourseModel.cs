@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MiladDarabzadeh.Data.Entities.Course.Connections;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,6 +21,6 @@ namespace MiladDarabzadeh.Data.Entities.Course
         [Column(TypeName = "nvarchar(60)")]
         public string ModelTitle { get; set; }
 
-        public List<Course> Course { get; set; }
+        public List<CourseModelConnection> CourseModelConnections { get; set; }
     }
 }

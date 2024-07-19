@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MiladDarabzadeh.Data.Entities.Course;
+using MiladDarabzadeh.Data.Entities.Course.Connections;
 using MiladDarabzadeh.Data.Entities.Discount;
 using MiladDarabzadeh.Data.Entities.User;
 using MiladDarabzadeh.Data.Entities.User.Connections;
@@ -26,6 +27,12 @@ namespace MiladDarabzadeh.Data.Context
         public DbSet<CourseGroup> CourseGroups { get; set; }
         public DbSet<CourseLevel> CourseLevels { get; set; }
         public DbSet<CourseDiscount> CourseDiscounts { get; set; }
+        public DbSet<CourseModelConnection> ModelConnections { get; set; }
+        public DbSet<CourseCycle> CourseCycls { get; set; }
+        public DbSet<CourseModel> CourseModels { get; set; }
+        public DbSet<CycleModel> CycleModels { get; set; }
+        public DbSet<SubCycle> SubCycls { get; set; }
+        public DbSet<OrderDiscount> OrderDiscounts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

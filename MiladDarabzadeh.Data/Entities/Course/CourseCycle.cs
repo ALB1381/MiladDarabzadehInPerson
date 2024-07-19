@@ -25,7 +25,11 @@ namespace MiladDarabzadeh.Data.Entities.Course
         
         public DateOnly EndDate { get; set; }
 
+        public int CyclePrice { get; set; }
+
         public int CourseId { get; set; }
+
+       
 
         [Column(TypeName = "TINYINT")]
         public int NumberOfSessions { get; set; }
@@ -35,7 +39,7 @@ namespace MiladDarabzadeh.Data.Entities.Course
         [ForeignKey("CourseId")]
         public Course Course { get; set; }
 
-        [ForeignKey("CycleModel")]
+        [ForeignKey("CycleModelId")]
         public CycleModel CycleModel { get; set; }
 
 

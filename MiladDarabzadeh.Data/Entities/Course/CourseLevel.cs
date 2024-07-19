@@ -22,6 +22,11 @@ namespace MiladDarabzadeh.Data.Entities.Course
         [Column(TypeName = "nvarchar(40)")]
         public string LevelTitle { get; set; }
 
+        [MaxLength(21)]
+        [Column(TypeName = "nvarchar(21)")]
+        public string? LevelColor { get; set; }
+
+
         public List<Course> Courses { get; set; }
     }
 }

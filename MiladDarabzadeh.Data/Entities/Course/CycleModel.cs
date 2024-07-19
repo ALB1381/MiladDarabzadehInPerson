@@ -20,6 +20,6 @@ namespace MiladDarabzadeh.Data.Entities.Course
         [Column(TypeName = "nvarchar(60)")]
         public string ModelTitle { get; set; }
 
-        public List<CourseCycle> Course { get; set; }
+        public List<CourseCycle> CourseCycle { get; set; }
     }
 }

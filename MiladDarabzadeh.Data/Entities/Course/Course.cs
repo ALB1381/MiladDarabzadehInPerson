@@ -1,4 +1,5 @@
-﻿using MiladDarabzadeh.Data.Entities.Discount;
+﻿using MiladDarabzadeh.Data.Entities.Course.Connections;
+using MiladDarabzadeh.Data.Entities.Discount;
 using MiladDarabzadeh.Data.Entities.User;
 using System;
 using System.Collections.Generic;
@@ -98,7 +99,6 @@ namespace MiladDarabzadeh.Data.Entities.Course
         [MaxLength(100, ErrorMessage = "{0} نمیتواند بیشتر از {1} کارکتر باشد")]
         public string? DemoFileName { get; set; }
         //Course Prices
-        //Teacher Name
         //Types Course
 
         [Required]
@@ -142,6 +142,8 @@ namespace MiladDarabzadeh.Data.Entities.Course
         public CourseLevel CourseLevel { get; set; }
 
         public List<CourseCycle> CourseCycles { get; set; }
+
+        public List<CourseModelConnection> CourseModelConnections { get; set; }
         #endregion
     }
 }

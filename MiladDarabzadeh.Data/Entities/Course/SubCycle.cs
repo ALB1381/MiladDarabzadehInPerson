@@ -20,6 +20,8 @@ namespace MiladDarabzadeh.Data.Entities.Course
 
         public DateTime EndDate { get; set; }
 
+      
+
         public int CourseCycleId { get; set; }
 
         [ForeignKey("CourseCycleId")]
