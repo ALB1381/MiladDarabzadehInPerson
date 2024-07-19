@@ -98,10 +98,7 @@ namespace MiladDarabzadeh.Data.Entities.Course
         [MaxLength(100, ErrorMessage = "{0} نمیتواند بیشتر از {1} کارکتر باشد")]
         public string? DemoFileName { get; set; }
         //Course Prices
-        //Time Course
-        //Time of Each session
         //Teacher Name
-        //Cycles
         //Types Course
 
         [Required]
@@ -143,6 +140,8 @@ namespace MiladDarabzadeh.Data.Entities.Course
 
         [ForeignKey("LevelId")]
         public CourseLevel CourseLevel { get; set; }
+
+        public List<CourseCycle> CourseCycles { get; set; }
         #endregion
     }
 }
