@@ -12,6 +12,8 @@ namespace MiladDarabzadeh.Data.Entities.Course
     public class CourseModel
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Column(TypeName = "TINYINT")]
         public int CourseModelId { get; set; }
 
         [Display(Name = "سبک برگذاری دوره")]

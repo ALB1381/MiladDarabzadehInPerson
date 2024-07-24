@@ -11,6 +11,8 @@ namespace MiladDarabzadeh.Data.Entities.Course
     public class CycleModel
     {
         [Key]
+        [Column(TypeName = "TINYINT")]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int CycleModelId { get; set; }
 
         [Display(Name = "سبک برگذاری جلسه")]

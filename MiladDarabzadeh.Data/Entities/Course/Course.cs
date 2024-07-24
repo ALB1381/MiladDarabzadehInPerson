@@ -45,7 +45,7 @@ namespace MiladDarabzadeh.Data.Entities.Course
         public string CourseUrl { get; set; }
 
 
-        public DateTime FirstTimeMadeDate { get; set; }
+        public DateOnly FirstTimeMadeDate { get; set; }
 
         
         [Display(Name = "نام کتاب های این دوره")]
@@ -84,6 +84,7 @@ namespace MiladDarabzadeh.Data.Entities.Course
         [MaxLength(250)]
         [Display(Name = "توضیحات کوتاه")]
         [Required]
+        [Column(TypeName = "nvarchar(250)")]
         public string ShortDescription { get; set; }
 
         [Display(Name = "دوره قابلیت پرداخت قسطی دارد")]
@@ -97,9 +98,9 @@ namespace MiladDarabzadeh.Data.Entities.Course
         public string CourseImage { get; set; }
 
         [MaxLength(100, ErrorMessage = "{0} نمیتواند بیشتر از {1} کارکتر باشد")]
+        [Column(TypeName = "nvarchar(250)")]
         public string? DemoFileName { get; set; }
-        //Course Prices
-        //Types Course
+
 
         [Required]
         public int GroupId { get; set; }
@@ -114,6 +115,7 @@ namespace MiladDarabzadeh.Data.Entities.Course
         public int StatusId { get; set; }
 
         [Required]
+        [Column(TypeName = "TINYINT")]
         public int LevelId { get; set; }
 
         [Display(Name = "دوره مکمل")]

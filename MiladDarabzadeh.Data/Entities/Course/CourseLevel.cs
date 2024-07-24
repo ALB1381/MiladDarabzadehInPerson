@@ -12,6 +12,7 @@ namespace MiladDarabzadeh.Data.Entities.Course
     {
         [Key]
         [Column(TypeName = "TINYINT")]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int LevelId { get; set; }
 
 
