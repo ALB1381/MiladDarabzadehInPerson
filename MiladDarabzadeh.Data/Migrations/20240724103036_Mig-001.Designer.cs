@@ -12,8 +12,8 @@ using MiladDarabzadeh.Data.Context;
 namespace MiladDarabzadeh.Data.Migrations
 {
     [DbContext(typeof(MiladContext))]
-    [Migration("20240719120350_Mig-002")]
-    partial class Mig002
+    [Migration("20240724103036_Mig-001")]
+    partial class Mig001
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,8 +36,8 @@ namespace MiladDarabzadeh.Data.Migrations
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ModelId")
-                        .HasColumnType("int");
+                    b.Property<byte>("ModelId")
+                        .HasColumnType("TINYINT");
 
                     b.HasKey("CMCId");
 
@@ -81,13 +81,10 @@ namespace MiladDarabzadeh.Data.Migrations
 
                     b.Property<string>("DemoFileName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(250)");
 
-                    b.Property<int?>("DiscountId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("FirstTimeMadeDate")
-                        .HasColumnType("datetime2");
+                    b.Property<DateOnly>("FirstTimeMadeDate")
+                        .HasColumnType("date");
 
                     b.Property<int>("GroupId")
                         .HasColumnType("int");
@@ -148,8 +145,6 @@ namespace MiladDarabzadeh.Data.Migrations
 
                     b.HasKey("CourseId");
 
-                    b.HasIndex("DiscountId");
-
                     b.HasIndex("GroupId");
 
                     b.HasIndex("LevelId");
@@ -169,8 +164,8 @@ namespace MiladDarabzadeh.Data.Migrations
                     b.Property<int>("CourseId")
                         .HasColumnType("int");
 
-                    b.Property<int>("CycleModelId")
-                        .HasColumnType("int");
+                    b.Property<byte>("CycleModelId")
+                        .HasColumnType("TINYINT");
 
                     b.Property<int>("CyclePrice")
                         .HasColumnType("int");
@@ -179,6 +174,9 @@ namespace MiladDarabzadeh.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
+
+                    b.Property<int?>("DiscountId")
+                        .HasColumnType("int");
 
                     b.Property<DateOnly>("EndDate")
                         .HasColumnType("date");
@@ -194,6 +192,8 @@ namespace MiladDarabzadeh.Data.Migrations
                     b.HasIndex("CourseId");
 
                     b.HasIndex("CycleModelId");
+
+                    b.HasIndex("DiscountId");
 
                     b.ToTable("CourseCycls");
                 });
@@ -224,10 +224,7 @@ namespace MiladDarabzadeh.Data.Migrations
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.Course.CourseLevel", b =>
                 {
                     b.Property<byte>("LevelId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("TINYINT");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<byte>("LevelId"));
 
                     b.Property<string>("LevelColor")
                         .HasMaxLength(21)
@@ -245,11 +242,8 @@ namespace MiladDarabzadeh.Data.Migrations
 
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.Course.CourseModel", b =>
                 {
-                    b.Property<int>("CourseModelId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseModelId"));
+                    b.Property<byte>("CourseModelId")
+                        .HasColumnType("TINYINT");
 
                     b.Property<string>("ModelTitle")
                         .IsRequired()
@@ -263,11 +257,8 @@ namespace MiladDarabzadeh.Data.Migrations
 
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.Course.CycleModel", b =>
                 {
-                    b.Property<int>("CycleModelId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CycleModelId"));
+                    b.Property<byte>("CycleModelId")
+                        .HasColumnType("TINYINT");
 
                     b.Property<string>("ModelTitle")
                         .IsRequired()
@@ -361,6 +352,69 @@ namespace MiladDarabzadeh.Data.Migrations
                     b.HasKey("OrderDiscounId");
 
                     b.ToTable("OrderDiscounts");
+                });
+
+            modelBuilder.Entity("MiladDarabzadeh.Data.Entities.Order.Order", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("OrderId"));
+
+                    b.Property<DateTime>("CreateDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("DiscountId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsFinally")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Sum")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("OrderId");
+
+                    b.HasIndex("DiscountId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("MiladDarabzadeh.Data.Entities.Order.SubOrder", b =>
+                {
+                    b.Property<int>("SubOrderId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SubOrderId"));
+
+                    b.Property<int>("CycleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CyclePrice")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("DiscountId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.HasKey("SubOrderId");
+
+                    b.HasIndex("CycleId");
+
+                    b.HasIndex("DiscountId");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("SubOrders");
                 });
 
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.User.Connections.RolePermissionConnection", b =>
@@ -508,7 +562,7 @@ namespace MiladDarabzadeh.Data.Migrations
                             UserNandF = "Milad Darabzadeh",
                             UserPassword = "62-D5-ED-C9-B0-AD-74-B5-AE-96-2E-5F-7F-C7-91-51",
                             UserPhoneNumber = "09139279581",
-                            UserRegisterDate = new DateTime(2024, 7, 19, 5, 3, 47, 995, DateTimeKind.Local).AddTicks(3282)
+                            UserRegisterDate = new DateTime(2024, 7, 24, 3, 30, 36, 261, DateTimeKind.Local).AddTicks(988)
                         },
                         new
                         {
@@ -523,7 +577,7 @@ namespace MiladDarabzadeh.Data.Migrations
                             UserNandF = "Ali Barzegar",
                             UserPassword = "0C-0B-33-26-C9-5A-66-D7-37-7A-0A-2F-75-DA-AC-34",
                             UserPhoneNumber = "09397894663",
-                            UserRegisterDate = new DateTime(2024, 7, 19, 5, 3, 47, 995, DateTimeKind.Local).AddTicks(3292)
+                            UserRegisterDate = new DateTime(2024, 7, 24, 3, 30, 36, 261, DateTimeKind.Local).AddTicks(997)
                         });
                 });
 
@@ -548,10 +602,6 @@ namespace MiladDarabzadeh.Data.Migrations
 
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.Course.Course", b =>
                 {
-                    b.HasOne("MiladDarabzadeh.Data.Entities.Discount.CourseDiscount", "CourseDiscount")
-                        .WithMany("Courses")
-                        .HasForeignKey("DiscountId");
-
                     b.HasOne("MiladDarabzadeh.Data.Entities.Course.CourseGroup", "CourseGroup")
                         .WithMany("GroupOfCourses")
                         .HasForeignKey("GroupId")
@@ -573,8 +623,6 @@ namespace MiladDarabzadeh.Data.Migrations
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("CourseDiscount");
 
                     b.Navigation("CourseGroup");
 
@@ -599,7 +647,13 @@ namespace MiladDarabzadeh.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("MiladDarabzadeh.Data.Entities.Discount.CourseDiscount", "CourseDiscount")
+                        .WithMany("CourseCycles")
+                        .HasForeignKey("DiscountId");
+
                     b.Navigation("Course");
+
+                    b.Navigation("CourseDiscount");
 
                     b.Navigation("CycleModel");
                 });
@@ -620,6 +674,48 @@ namespace MiladDarabzadeh.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("CourseCycle");
+                });
+
+            modelBuilder.Entity("MiladDarabzadeh.Data.Entities.Order.Order", b =>
+                {
+                    b.HasOne("MiladDarabzadeh.Data.Entities.Discount.OrderDiscount", "OrderDiscount")
+                        .WithMany("Orders")
+                        .HasForeignKey("DiscountId");
+
+                    b.HasOne("MiladDarabzadeh.Data.Entities.User.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("OrderDiscount");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MiladDarabzadeh.Data.Entities.Order.SubOrder", b =>
+                {
+                    b.HasOne("MiladDarabzadeh.Data.Entities.Course.CourseCycle", "CourseCycle")
+                        .WithMany("SubOrders")
+                        .HasForeignKey("CycleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("MiladDarabzadeh.Data.Entities.Discount.CourseDiscount", "CourseDiscount")
+                        .WithMany("SubOrders")
+                        .HasForeignKey("DiscountId");
+
+                    b.HasOne("MiladDarabzadeh.Data.Entities.Order.Order", "Order")
+                        .WithMany("SubOrders")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CourseCycle");
+
+                    b.Navigation("CourseDiscount");
+
+                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.User.Connections.RolePermissionConnection", b =>
@@ -662,6 +758,8 @@ namespace MiladDarabzadeh.Data.Migrations
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.Course.CourseCycle", b =>
                 {
                     b.Navigation("SubCycles");
+
+                    b.Navigation("SubOrders");
                 });
 
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.Course.CourseGroup", b =>
@@ -690,7 +788,19 @@ namespace MiladDarabzadeh.Data.Migrations
 
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.Discount.CourseDiscount", b =>
                 {
-                    b.Navigation("Courses");
+                    b.Navigation("CourseCycles");
+
+                    b.Navigation("SubOrders");
+                });
+
+            modelBuilder.Entity("MiladDarabzadeh.Data.Entities.Discount.OrderDiscount", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("MiladDarabzadeh.Data.Entities.Order.Order", b =>
+                {
+                    b.Navigation("SubOrders");
                 });
 
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.User.Permission", b =>

@@ -36,6 +36,8 @@ namespace MiladDarabzadeh.Data.Entities.Discount
         public DateOnly StartDate { get; set; }
 
         public DateOnly EndDate { get; set; }
-        //List Of Orders
+
+
+        public List<Order.Order> Orders { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MiladDarabzadeh.Data.Entities.Order;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -29,7 +30,8 @@ namespace MiladDarabzadeh.Data.Entities.Course
 
         public int CourseId { get; set; }
 
-       
+        public int? DiscountId { get; set; }
+
 
         [Column(TypeName = "TINYINT")]
         public int NumberOfSessions { get; set; }
@@ -45,6 +47,10 @@ namespace MiladDarabzadeh.Data.Entities.Course
 
         public List<SubCycle> SubCycles { get; set; }
 
+        public List<SubOrder> SubOrders { get; set; }
+
+        [ForeignKey("DiscountId")]
+        public Discount.CourseDiscount? CourseDiscount { get; set; }
 
     }
 }

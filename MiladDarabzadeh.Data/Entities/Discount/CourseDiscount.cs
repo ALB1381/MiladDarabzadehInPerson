@@ -27,6 +27,8 @@ namespace MiladDarabzadeh.Data.Entities.Discount
         public DateOnly StartDate { get; set; }
         public DateOnly EndDate { get; set; }
 
-        public List<Course.Course> Courses { get; set; }
+        public  List<Course.CourseCycle>? CourseCycles { get; set; }
+
+        public List<Order.SubOrder>? SubOrders { get; set; }
     }
 }

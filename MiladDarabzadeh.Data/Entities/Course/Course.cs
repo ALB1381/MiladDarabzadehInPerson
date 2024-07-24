@@ -107,8 +107,6 @@ namespace MiladDarabzadeh.Data.Entities.Course
 
         public int? SubGroupId { get; set; }
 
-        public int? DiscountId { get; set; }
-
         public int TeacherId { get; set; }
 
         [Required]
@@ -136,9 +134,6 @@ namespace MiladDarabzadeh.Data.Entities.Course
 
         [ForeignKey("SubGroupId")]
         public CourseGroup? CourseSubGroup { get; set; }
-
-        [ForeignKey("DiscountId")]
-        public CourseDiscount? CourseDiscount { get; set; }
 
         [ForeignKey("LevelId")]
         public CourseLevel CourseLevel { get; set; }

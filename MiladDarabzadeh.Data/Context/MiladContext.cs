@@ -2,6 +2,7 @@
 using MiladDarabzadeh.Data.Entities.Course;
 using MiladDarabzadeh.Data.Entities.Course.Connections;
 using MiladDarabzadeh.Data.Entities.Discount;
+using MiladDarabzadeh.Data.Entities.Order;
 using MiladDarabzadeh.Data.Entities.User;
 using MiladDarabzadeh.Data.Entities.User.Connections;
 using System;
@@ -33,6 +34,8 @@ namespace MiladDarabzadeh.Data.Context
         public DbSet<CycleModel> CycleModels { get; set; }
         public DbSet<SubCycle> SubCycls { get; set; }
         public DbSet<OrderDiscount> OrderDiscounts { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<SubOrder> SubOrders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
