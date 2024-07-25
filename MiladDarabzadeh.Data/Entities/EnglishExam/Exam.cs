@@ -12,9 +12,7 @@ namespace MiladDarabzadeh.Data.Entities.EnglishExam
 
         public string ExamName { get; set; }
 
-        public DateTime ExamStartTime { get; set; }
-        public DateTime ExamEndTime { get; set; }
-
+    
         
     }
 }
