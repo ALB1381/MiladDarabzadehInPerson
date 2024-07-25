@@ -20,7 +20,6 @@ namespace MiladDarabzadeh.Data.Entities.User.Connections
 
         [ForeignKey("RoleId")]
         public Role Role { get; set; }
-
         [ForeignKey("PermissionId")]
         public Permission Permission { get; set; }
     }
