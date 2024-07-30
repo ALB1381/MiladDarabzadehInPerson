@@ -35,6 +35,19 @@ namespace MiladDarabzadeh.Data.Entities.EnglishExam
 
         public List<UserScoreExam> UserScoreExams { get; set; }
 
+        //For the questions we need to be able to upload a audio and video and picture file unrequired for each question.
+        //We need a text box for each question which is requered.
+        //We need two to six options for each questions with text for each option.
+        //All of the questions will have two options: 1-some of theme should be multipel chose and 2-some of theme can be single choise.
+        /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        //For all questions we can have audio answer option.
+        //For some questions we should have record buttons for audio answer for speaking test.
+        //All the lestining qustions should have limit for playing.
+        //All the option should have value.
+        //Some questions should be describe and they will not have any options to choice.
+        //Make group of test.
+        //For writing qustions we have just a value and the teacher of the class should qualify it.
+        //For speaking we can just take a value for each qustion.
         //Question List
     }
 }
