@@ -1,4 +1,5 @@
-﻿using MiladDarabzadeh.Data.Entities.Order;
+﻿using MiladDarabzadeh.Data.Entities.EnglishExam.Connections;
+using MiladDarabzadeh.Data.Entities.Order;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -51,6 +52,8 @@ namespace MiladDarabzadeh.Data.Entities.Course
 
         [ForeignKey("DiscountId")]
         public Discount.CourseDiscount? CourseDiscount { get; set; }
+
+        public List<ExamCycleConnection> ExamCycleConnections { get; set; }
 
     }
 }

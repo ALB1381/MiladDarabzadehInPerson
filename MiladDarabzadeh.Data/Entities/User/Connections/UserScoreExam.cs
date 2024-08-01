@@ -18,6 +18,7 @@ namespace MiladDarabzadeh.Data.Entities.User.Connections
        /// ._.\\\
         [Column(TypeName = "TINYINT")]
         public int Score { get; set; }
+
         public DateTime ExamDate { get; set; }
 
         public int UserId { get; set; }

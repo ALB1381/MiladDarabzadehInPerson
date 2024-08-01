@@ -1,4 +1,6 @@
 ﻿using MiladDarabzadeh.Data.Entities.Course;
+using MiladDarabzadeh.Data.Entities.EnglishExam.Connections;
+using MiladDarabzadeh.Data.Entities.EnglishExam.Questions.Connections;
 using MiladDarabzadeh.Data.Entities.User.Connections;
 using System;
 using System.Collections.Generic;
@@ -27,13 +29,17 @@ namespace MiladDarabzadeh.Data.Entities.EnglishExam
         [Column(TypeName = "smallint")]
         public int? Time { get; set; }
 
-        
-        public int CycleId { get; set; }
+        [Column(TypeName = "smallint")]
+        public int QuestionCount { get; set; }
 
         [ForeignKey("CycleId")]
         public CourseCycle CourseCycle { get; set; }
 
         public List<UserScoreExam> UserScoreExams { get; set; }
+
+        public List<ExamCycleConnection> ExamCycleConnections { get; set; }
+
+        public List<questionExamConnection> QuestionExamConnections { get; set; }
 
         //For the questions we need to be able to upload a audio and video and picture file unrequired for each question.
         //We need a text box for each question which is requered.
