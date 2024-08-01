@@ -12,6 +12,7 @@ namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions
     public class audioQuestion
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int AudioQuestionId { get; set; }
 
 
@@ -25,7 +26,7 @@ namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [MinLength(4, ErrorMessage = "{0} نمیتواند کمتر از {1} کارکتر باشد")]
         [MaxLength(400, ErrorMessage = "{0} نمیتواند بیشتر از {1} کارکتر باشد")]
-        [Column(TypeName = "nvarchar(400)")]
+        [Column(TypeName = "nvarchar(800)")]
         public string QuestionText { get; set; }
 
         [Display(Name = "فایل صوتی")]
