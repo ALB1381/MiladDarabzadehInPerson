@@ -21,10 +21,15 @@ namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions.Connections
         public int? TextualQustionId { get; set; }
         public int? VideoQustionId { get; set; }
 
+        [ForeignKey("AudioQuestionId")]
         public audioQuestion? AudioQuestion { get; set; }
+        [ForeignKey("PictureQustionId")]
         public pictureQuestion? PictureQuestion { get; set; }
+        [ForeignKey("TextualQustionId")]
         public textualQuestion? TextualQuestion { get; set; }
+        [ForeignKey("VideoQustionId")]
         public videoQuestion? VideoQuestion { get; set; }
+        [ForeignKey("ExamId")]
         public Exam Exam { get; set; }
 
     }

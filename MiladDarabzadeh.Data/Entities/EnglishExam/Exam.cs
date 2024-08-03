@@ -28,12 +28,9 @@ namespace MiladDarabzadeh.Data.Entities.EnglishExam
 
         [Column(TypeName = "smallint")]
         public int? Time { get; set; }
-
+        
         [Column(TypeName = "smallint")]
         public int QuestionCount { get; set; }
-
-        [ForeignKey("CycleId")]
-        public CourseCycle CourseCycle { get; set; }
 
         public List<UserScoreExam> UserScoreExams { get; set; }
 

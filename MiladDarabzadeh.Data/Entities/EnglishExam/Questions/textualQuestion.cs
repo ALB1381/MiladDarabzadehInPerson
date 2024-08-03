@@ -63,6 +63,13 @@ namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions
         [Column(TypeName = "nvarchar(200)")]
         public string? optionSixText { get; set; }
 
+
+
+        public int QuestionGroupId { get; set; }
+
+        [ForeignKey("QuestionGroupId")]
+        public QuestionGroups.QuestionGroup QuestionGroup { get; set; }
+
         public List<questionExamConnection> QuestionExamConnections { get; set; }
     }
 }
