@@ -25,7 +25,10 @@ namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         public string QuestionText { get; set; }
 
+        [Column(TypeName = "TINYINT")]
+        public int? FixedScore { get; set; }
 
+        public bool doesItHaveFixedScores { get; set; }
         public bool ShouldAnswerWithVoice { get; set; }
 
         public bool ShouldAnsweWithText { get; set; }

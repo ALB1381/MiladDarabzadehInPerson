@@ -33,7 +33,9 @@ namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions
         [Column(TypeName = "nvarchar(70)")]
         public string imageFileName { get; set; }
 
-
+        [Column(TypeName = "TINYINT")]
+        public int? FixedScore { get; set; }
+        public bool doesItHaveFixedScores { get; set; }
 
         public bool ShouldAnswerWithVoice { get; set; }
 

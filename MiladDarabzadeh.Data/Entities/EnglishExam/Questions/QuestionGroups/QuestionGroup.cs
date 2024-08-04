@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MiladDarabzadeh.Data.Entities.EnglishExam.Questions.AudioQuestions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,25 +12,20 @@ namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions.QuestionGroups
     public class QuestionGroup
     {
         [Key]
+        [Column(TypeName = "TINYINT")]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int QuestionGroupId { get; set; }
 
         public string QuestionGroupTitle { get; set; }
 
-        public int? audioQuestionId { get; set; }
-        public int? pictureQuestionId { get; set; }
-        public int? textualQuestionId { get; set; }
-        public int? videoQuestionId { get; set; }
-
-        [ForeignKey("audioQuestionId")]
         public List<audioQuestion>? AudioQuestions { get; set; }
 
-        [ForeignKey("pictureQuestionId")]
         public List<pictureQuestion>? PictureQuestions { get; set; }
 
-        [ForeignKey("textualQuestionId")]
         public List<textualQuestion>? TextualQuestions { get; set; }
-
-        [ForeignKey("videoQuestionId")]
         public List<videoQuestion>? VideoQuestions { get; set; }
+
+        public List<audioQuestionAnsweredByAudio> AudioQuestionAnsweredByAudios { get; set; }
+        public List<audioQuestionAnsweredBySelecting> audioQuestionAnsweredBySelecting { get; set; }
     }
 }
