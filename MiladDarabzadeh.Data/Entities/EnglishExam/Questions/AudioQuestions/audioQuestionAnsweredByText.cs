@@ -1,15 +1,15 @@
-﻿using System;
+﻿using MiladDarabzadeh.Data.Entities.EnglishExam.Questions.Connections;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MiladDarabzadeh.Data.Entities.EnglishExam.Questions.Connections;
 
 namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions.AudioQuestions
 {
-    public class audioQuestionAnsweredByAudio
+    public class audioQuestionAnsweredByText
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

@@ -71,7 +71,7 @@ namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions.AudioQuestions
         [ForeignKey("QuestionGroupId")]
         public QuestionGroups.QuestionGroup QuestionGroup { get; set; }
 
-        public List<questionExamConnection> QuestionExamConnections { get; set; }
+        public List<questionExamConnection>? QuestionExamConnections { get; set; }
     }
 
 }

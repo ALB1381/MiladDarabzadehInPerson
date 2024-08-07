@@ -1,15 +1,16 @@
-﻿using MiladDarabzadeh.Data.Entities.EnglishExam.Questions.Connections;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MiladDarabzadeh.Data.Entities.EnglishExam.Questions.QuestionGroups;
+using MiladDarabzadeh.Data.Entities.EnglishExam.Questions.Connections;
 
-namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions
+namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions.pictureQuestions
 {
-    public class pictureQuestion
+    public class pictureQuestionAnsweredBySelecting
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
@@ -35,19 +36,9 @@ namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions
 
         [Column(TypeName = "TINYINT")]
         public int? FixedScore { get; set; }
-        public bool doesItHaveFixedScores { get; set; }
-
-        public bool ShouldAnswerWithVoice { get; set; }
-
-        public bool ShouldAnsweWithText { get; set; }
-
-        public bool ShouldCameraRecord { get; set; }
-
-        public bool doesItSelective { get; set; }
-
         public bool doesItMultipleSelective { get; set; }
 
-
+        public bool ShouldCameraRecord { get; set; }
 
         [Column(TypeName = "TINYINT")]
         public int? optionOneValue { get; set; }
@@ -74,12 +65,12 @@ namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions
         [Column(TypeName = "nvarchar(200)")]
         public string? optionSixText { get; set; }
 
-
         public int QuestionGroupId { get; set; }
 
-        [ForeignKey("QuestionGroupId")]
-        public QuestionGroups.QuestionGroup QuestionGroup { get; set; }
 
-        public List<questionExamConnection> QuestionExamConnections { get; set; }
+        [ForeignKey("QuestionGroupId")]
+        public QuestionGroup QuestionGroup { get; set; }
+
+        public List<questionExamConnection>? QuestionExamConnections { get; set; }
     }
 }
