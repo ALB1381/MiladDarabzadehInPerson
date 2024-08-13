@@ -1,4 +1,5 @@
 ﻿using MiladDarabzadeh.Data.Entities.Course;
+using MiladDarabzadeh.Data.Entities.EnglishExam.Questions.audioQuestionAnswers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -81,5 +82,10 @@ namespace MiladDarabzadeh.Data.Entities.User
 
         public List<Course.Course>? TeacherCourses { get; set; }
         #endregion
+
+
+        public List<audioAnswerQuestionedByAudio>? AudioAnswerQuestionedByAudios { get; set; }
+
+        public List<selectingAnswerQuestionedByAudio>? SelectingAnswerQuestionedByAudios { get; set; }
     }
 }

@@ -28,7 +28,7 @@ namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions.Connections
 
 
         /// <summary>
-        /// /////////////////////////////////
+        /// ///////////////////////////////// Audio Questions connections
         /// </summary>
         public int? AudioQuestionAnsweredByAudioId { get; set; }
         [ForeignKey("AudioQuestionAnsweredByAudioId")]
@@ -44,7 +44,7 @@ namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions.Connections
 
 
         /// <summary>
-        /// ///////////////////////////////////////////////
+        /// /////////////////////////////////////////////// Picture Question Connections
         /// </summary>
 
 
@@ -60,7 +60,7 @@ namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions.Connections
 
         /////////////////////////////////
         /// <summary>
-        /// 
+        ///  Textual Question connections
         /// </summary>
         /// 
 
@@ -77,7 +77,7 @@ namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions.Connections
 
         ///////////////////////////////
         /// <summary>
-        /// 
+        /// Video Question Connections
         /// </summary>
         /// 
         public int? VideoQuestionAnsweredByAudioId { get; set; }
