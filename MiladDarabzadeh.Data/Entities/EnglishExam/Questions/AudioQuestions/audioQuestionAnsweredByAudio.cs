@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MiladDarabzadeh.Data.Entities.EnglishExam.Questions.Connections;
+using MiladDarabzadeh.Data.Entities.EnglishExam.Questions.audioQuestionAnswers;
 
 namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions.AudioQuestions
 {
@@ -47,5 +48,7 @@ namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions.AudioQuestions
         public QuestionGroups.QuestionGroup QuestionGroup { get; set; }
 
         public List<questionExamConnection>? QuestionExamConnections { get; set; }
+
+        public List<audioAnswerQuestionedByAudio>? AudioAnswerQuestionedByAudios { get; set; }
     }
 }
