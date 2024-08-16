@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MiladDarabzadeh.Data.Entities.EnglishExam.Questions.Connections;
+using MiladDarabzadeh.Data.Entities.EnglishExam.Answers.pictureQuestionAnswers;
 
 namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions.pictureQuestions
 {
@@ -43,5 +44,6 @@ namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions.pictureQuestions
         public QuestionGroups.QuestionGroup QuestionGroup { get; set; }
 
         public List<questionExamConnection>? QuestionExamConnections { get; set; }
+        public List<TextAnswerQuestionedByPicture> TextAnswerQuestionedByPictures { get; set; }
     }
 }

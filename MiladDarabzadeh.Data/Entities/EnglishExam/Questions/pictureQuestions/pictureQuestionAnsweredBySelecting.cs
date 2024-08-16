@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MiladDarabzadeh.Data.Entities.EnglishExam.Questions.QuestionGroups;
 using MiladDarabzadeh.Data.Entities.EnglishExam.Questions.Connections;
+using MiladDarabzadeh.Data.Entities.EnglishExam.Answers.pictureQuestionAnswers;
 
 namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions.pictureQuestions
 {
@@ -72,5 +73,7 @@ namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions.pictureQuestions
         public QuestionGroup QuestionGroup { get; set; }
 
         public List<questionExamConnection>? QuestionExamConnections { get; set; }
+
+        public List<SelectingAnswerQuestionedByPicture> SelectingAnswerQuestionedByPictures { get; set; }
     }
 }

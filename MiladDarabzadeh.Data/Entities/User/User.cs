@@ -1,5 +1,7 @@
 ﻿using MiladDarabzadeh.Data.Entities.Course;
-using MiladDarabzadeh.Data.Entities.EnglishExam.Questions.audioQuestionAnswers;
+using MiladDarabzadeh.Data.Entities.EnglishExam.Answers.audioQuestionAnswers;
+using MiladDarabzadeh.Data.Entities.EnglishExam.Answers.pictureQuestionAnswers;
+using MiladDarabzadeh.Data.Entities.EnglishExam.Answers.textualQuestionAnswers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -83,9 +85,29 @@ namespace MiladDarabzadeh.Data.Entities.User
         public List<Course.Course>? TeacherCourses { get; set; }
         #endregion
 
-
+        /// <summary>
+        /// ///////////////////////////
+        /// </summary>
         public List<audioAnswerQuestionedByAudio>? AudioAnswerQuestionedByAudios { get; set; }
 
         public List<selectingAnswerQuestionedByAudio>? SelectingAnswerQuestionedByAudios { get; set; }
+
+        public List<TextAnswerQuestionedByAudio>? TextAnswerQuestionedByAudios { get; set; }
+
+        ////////////////////////////////////
+        ///
+        public List<AudioAnswerQuestionedByPicture> AudioAnswerQuestionedByPictures { get; set; }
+
+        public List<SelectingAnswerQuestionedByPicture> SelectingAnswerQuestionedByPictures { get; set; }
+
+        public List<TextAnswerQuestionedByPicture> TextAnswerQuestionedByPictures { get; set; }
+
+        ///////////////////////
+        ///
+
+        public List<AudioAnswerQuestionedByText> AudioAnswerQuestionedByTexts { get; set; }
+        public List<SelectingAnswerQuestionedByText> SelectingAnswerQuestionedByTexts { get; set; }
+        public List<TextAnswerQuestionedByText> TextAnswerQuestionedByTexts { get; set; }
+
     }
 }

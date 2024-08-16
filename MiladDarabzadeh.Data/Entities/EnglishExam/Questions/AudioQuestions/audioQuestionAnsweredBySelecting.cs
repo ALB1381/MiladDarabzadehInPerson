@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MiladDarabzadeh.Data.Entities.EnglishExam.Questions.Connections;
-using MiladDarabzadeh.Data.Entities.EnglishExam.Questions.audioQuestionAnswers;
+using MiladDarabzadeh.Data.Entities.EnglishExam.Answers.audioQuestionAnswers;
 
 namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions.AudioQuestions
 {
@@ -69,12 +69,17 @@ namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions.AudioQuestions
         public bool ShouldCameraRecord { get; set; }
 
         public int QuestionGroupId { get; set; }
+
+
+        #region relation connection's
         [ForeignKey("QuestionGroupId")]
         public QuestionGroups.QuestionGroup QuestionGroup { get; set; }
 
         public List<questionExamConnection>? QuestionExamConnections { get; set; }
 
         public List<selectingAnswerQuestionedByAudio>? SelectingAnswerQuestionedByAudios { get; set; }
+        #endregion
+
     }
 
 }

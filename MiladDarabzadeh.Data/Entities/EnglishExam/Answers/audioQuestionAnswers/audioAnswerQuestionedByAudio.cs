@@ -8,33 +8,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions.audioQuestionAnswers
+namespace MiladDarabzadeh.Data.Entities.EnglishExam.Answers.audioQuestionAnswers
 {
     public class audioAnswerQuestionedByAudio
     {
         [Key]
         public int AnswerId { get; set; }
 
-
         public string? FileName { get; set; }
-
 
         [Column(TypeName = "TINYINT")]
         public int Score { get; set; }
 
-
+        #region relation Id's
         public int audioQuestionAnsweredByAudioId { get; set; }
+        public int UserId { get; set; }
+        #endregion
 
-
+        #region relation connection's
         [ForeignKey("audioQuestionAnsweredByAudioId")]
         public audioQuestionAnsweredByAudio audioQuestionAnsweredByAudio { get; set; }
 
-
-        public int UserId { get; set; }
-
-
         [ForeignKey("UserId")]
         public User.User User { get; set; }
+        #endregion
 
     }
 }

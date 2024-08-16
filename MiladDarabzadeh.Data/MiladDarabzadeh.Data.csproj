@@ -20,10 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\EnglishExam\Answers\" />
-    <Folder Include="Entities\EnglishExam\Questions\videoQuestionAnswers\" />
-    <Folder Include="Entities\EnglishExam\Questions\textualQuestionAnswers\" />
-    <Folder Include="Entities\EnglishExam\Questions\pictureQuestionAnswers\" />
+    <Folder Include="Entities\EnglishExam\Answers\videoQuestionAnswers\" />
   </ItemGroup>
 
 </Project>
