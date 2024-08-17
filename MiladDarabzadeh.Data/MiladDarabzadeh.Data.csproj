@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\EnglishExam\Answers\videoQuestionAnswers\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MiladDarabzadeh.Data.Entities.EnglishExam.Questions.Connections;
+using MiladDarabzadeh.Data.Entities.EnglishExam.Answers.videoQuestionAnswers;
 
 namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions.videoQuestions
 {
@@ -75,5 +76,7 @@ namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions.videoQuestions
         [ForeignKey("QuestionGroupId")]
         public QuestionGroups.QuestionGroup QuestionGroup { get; set; }
         public List<questionExamConnection> QuestionExamConnections { get; set; }
+
+        public List<SelectingAnswerQuestionedByVideo> SelectingAnswerQuestionedByVideos { get; set; }
     }
 }

@@ -2,6 +2,7 @@
 using MiladDarabzadeh.Data.Entities.EnglishExam.Answers.audioQuestionAnswers;
 using MiladDarabzadeh.Data.Entities.EnglishExam.Answers.pictureQuestionAnswers;
 using MiladDarabzadeh.Data.Entities.EnglishExam.Answers.textualQuestionAnswers;
+using MiladDarabzadeh.Data.Entities.EnglishExam.Answers.videoQuestionAnswers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -108,6 +109,13 @@ namespace MiladDarabzadeh.Data.Entities.User
         public List<AudioAnswerQuestionedByText> AudioAnswerQuestionedByTexts { get; set; }
         public List<SelectingAnswerQuestionedByText> SelectingAnswerQuestionedByTexts { get; set; }
         public List<TextAnswerQuestionedByText> TextAnswerQuestionedByTexts { get; set; }
+
+        ///////////////
+        ///
+        public List<AudioAnswerQuestionedByVideo> AudioAnswerQuestionedByVideos { get; set; }
+        public List<SelectingAnswerQuestionedByVideo> SelectingAnswerQuestionedByVideos { get; set; }
+        public List<TextAnswerQuestionedByVIdeo> TextAnswerQuestionedByVIdeos { get; set; }
+
 
     }
 }
