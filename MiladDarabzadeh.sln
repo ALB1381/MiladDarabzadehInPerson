@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34902.65
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiladDarabzadeh.Web", "MiladDarabzadeh.Web\MiladDarabzadeh.Web.csproj", "{7D291EA1-D0CF-4B95-A33B-A9373F848806}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiladDarabzadeh.Web", "MiladDarabzadeh.Web\MiladDarabzadeh.Web.csproj", "{7D291EA1-D0CF-4B95-A33B-A9373F848806}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiladDarabzadeh.Core", "MiladDarabzadeh.Core\MiladDarabzadeh.Core.csproj", "{CF7AFD23-9259-4E41-A6DD-0677906C80CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiladDarabzadeh.Core", "MiladDarabzadeh.Core\MiladDarabzadeh.Core.csproj", "{CF7AFD23-9259-4E41-A6DD-0677906C80CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiladDarabzadeh.Data", "MiladDarabzadeh.Data\MiladDarabzadeh.Data.csproj", "{6BF4EDC7-284C-494B-90F5-B2C6A18920C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiladDarabzadeh.Data", "MiladDarabzadeh.Data\MiladDarabzadeh.Data.csproj", "{6BF4EDC7-284C-494B-90F5-B2C6A18920C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
