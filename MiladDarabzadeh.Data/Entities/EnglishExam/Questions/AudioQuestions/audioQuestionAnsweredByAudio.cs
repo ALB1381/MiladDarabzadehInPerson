@@ -50,5 +50,6 @@ namespace MiladDarabzadeh.Data.Entities.EnglishExam.Questions.AudioQuestions
         public QuestionGroups.QuestionGroup QuestionGroup { get; set; }
 
         public List<questionExamConnection>? QuestionExamConnections { get; set; }
+        #endregion
     }
 }

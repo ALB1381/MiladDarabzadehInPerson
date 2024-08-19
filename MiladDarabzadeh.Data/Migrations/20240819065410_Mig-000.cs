@@ -3,110 +3,86 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace MiladDarabzadeh.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class Mig0000 : Migration
+    public partial class Mig000 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_CourseCycls_CourseDiscounts_DiscountId",
-                table: "CourseCycls");
+            migrationBuilder.CreateTable(
+                name: "CourseDiscounts",
+                columns: table => new
+                {
+                    DiscountId = table.Column<int>(type: "int", nullable: false),
+                    DiscountTitle = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    DisocuntPercentage = table.Column<byte>(type: "TINYINT", nullable: false),
+                    StartDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    EndDate = table.Column<DateOnly>(type: "date", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseDiscounts", x => x.DiscountId);
+                });
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_CourseCycls_Courses_CourseId",
-                table: "CourseCycls");
+            migrationBuilder.CreateTable(
+                name: "CourseGroups",
+                columns: table => new
+                {
+                    GroupId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GroupTitle = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    ParentId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseGroups", x => x.GroupId);
+                    table.ForeignKey(
+                        name: "FK_CourseGroups_CourseGroups_ParentId",
+                        column: x => x.ParentId,
+                        principalTable: "CourseGroups",
+                        principalColumn: "GroupId");
+                });
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_CourseCycls_CycleModels_CycleModelId",
-                table: "CourseCycls");
+            migrationBuilder.CreateTable(
+                name: "CourseLevels",
+                columns: table => new
+                {
+                    LevelId = table.Column<byte>(type: "TINYINT", nullable: false),
+                    LevelTitle = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    LevelColor = table.Column<string>(type: "nvarchar(21)", maxLength: 21, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseLevels", x => x.LevelId);
+                });
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_ModelConnections_CourseModels_ModelId",
-                table: "ModelConnections");
+            migrationBuilder.CreateTable(
+                name: "CourseModels",
+                columns: table => new
+                {
+                    CourseModelId = table.Column<byte>(type: "TINYINT", nullable: false),
+                    ModelTitle = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseModels", x => x.CourseModelId);
+                });
 
-            migrationBuilder.DropForeignKey(
-                name: "FK_ModelConnections_Courses_CourseId",
-                table: "ModelConnections");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_SubCycls_CourseCycls_CourseCycleId",
-                table: "SubCycls");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_SubOrders_CourseCycls_CycleId",
-                table: "SubOrders");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_SubCycls",
-                table: "SubCycls");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_ModelConnections",
-                table: "ModelConnections");
-
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_CourseCycls",
-                table: "CourseCycls");
-
-            migrationBuilder.RenameTable(
-                name: "SubCycls",
-                newName: "SubCycles");
-
-            migrationBuilder.RenameTable(
-                name: "ModelConnections",
-                newName: "CourseModelConnections");
-
-            migrationBuilder.RenameTable(
-                name: "CourseCycls",
-                newName: "CourseCycles");
-
-            migrationBuilder.RenameIndex(
-                name: "IX_SubCycls_CourseCycleId",
-                table: "SubCycles",
-                newName: "IX_SubCycles_CourseCycleId");
-
-            migrationBuilder.RenameIndex(
-                name: "IX_ModelConnections_ModelId",
-                table: "CourseModelConnections",
-                newName: "IX_CourseModelConnections_ModelId");
-
-            migrationBuilder.RenameIndex(
-                name: "IX_ModelConnections_CourseId",
-                table: "CourseModelConnections",
-                newName: "IX_CourseModelConnections_CourseId");
-
-            migrationBuilder.RenameIndex(
-                name: "IX_CourseCycls_DiscountId",
-                table: "CourseCycles",
-                newName: "IX_CourseCycles_DiscountId");
-
-            migrationBuilder.RenameIndex(
-                name: "IX_CourseCycls_CycleModelId",
-                table: "CourseCycles",
-                newName: "IX_CourseCycles_CycleModelId");
-
-            migrationBuilder.RenameIndex(
-                name: "IX_CourseCycls_CourseId",
-                table: "CourseCycles",
-                newName: "IX_CourseCycles_CourseId");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_SubCycles",
-                table: "SubCycles",
-                column: "SubCycleId");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_CourseModelConnections",
-                table: "CourseModelConnections",
-                column: "CMCId");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_CourseCycles",
-                table: "CourseCycles",
-                column: "CycleId");
+            migrationBuilder.CreateTable(
+                name: "CycleModels",
+                columns: table => new
+                {
+                    CycleModelId = table.Column<byte>(type: "TINYINT", nullable: false),
+                    ModelTitle = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CycleModels", x => x.CycleModelId);
+                });
 
             migrationBuilder.CreateTable(
                 name: "Exams",
@@ -125,6 +101,37 @@ namespace MiladDarabzadeh.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "OrderDiscounts",
+                columns: table => new
+                {
+                    OrderDiscounId = table.Column<int>(type: "int", nullable: false),
+                    DiscountCode = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: true),
+                    AvaibleCount = table.Column<int>(type: "int", nullable: true),
+                    Percentage = table.Column<byte>(type: "TINYINT", nullable: true),
+                    PriceLimite = table.Column<int>(type: "int", nullable: true),
+                    StartDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    EndDate = table.Column<DateOnly>(type: "date", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderDiscounts", x => x.OrderDiscounId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Permissions",
+                columns: table => new
+                {
+                    PermissionId = table.Column<byte>(type: "TINYINT", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PermissionTitle = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Permissions", x => x.PermissionId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "QuestionGroups",
                 columns: table => new
                 {
@@ -137,57 +144,16 @@ namespace MiladDarabzadeh.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ExamCycleConnections",
+                name: "Roles",
                 columns: table => new
                 {
-                    ECCId = table.Column<int>(type: "int", nullable: false)
+                    RoleId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ExamId = table.Column<int>(type: "int", nullable: false),
-                    CycleId = table.Column<int>(type: "int", nullable: false)
+                    RoleTitle = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ExamCycleConnections", x => x.ECCId);
-                    table.ForeignKey(
-                        name: "FK_ExamCycleConnections_CourseCycles_CycleId",
-                        column: x => x.CycleId,
-                        principalTable: "CourseCycles",
-                        principalColumn: "CycleId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_ExamCycleConnections_Exams_ExamId",
-                        column: x => x.ExamId,
-                        principalTable: "Exams",
-                        principalColumn: "ExamId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserScoreExams",
-                columns: table => new
-                {
-                    USEId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Score = table.Column<byte>(type: "TINYINT", nullable: false),
-                    ExamDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    ExamId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserScoreExams", x => x.USEId);
-                    table.ForeignKey(
-                        name: "FK_UserScoreExams_Exams_ExamId",
-                        column: x => x.ExamId,
-                        principalTable: "Exams",
-                        principalColumn: "ExamId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_UserScoreExams_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
+                    table.PrimaryKey("PK_Roles", x => x.RoleId);
                 });
 
             migrationBuilder.CreateTable(
@@ -521,306 +487,57 @@ namespace MiladDarabzadeh.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AudioAnswerQuestionedByAudios",
+                name: "RolePermissionConnections",
                 columns: table => new
                 {
-                    AnswerId = table.Column<int>(type: "int", nullable: false)
+                    RPCId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Score = table.Column<byte>(type: "TINYINT", nullable: false),
-                    audioQuestionAnsweredByAudioId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    PermissionId = table.Column<byte>(type: "TINYINT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AudioAnswerQuestionedByAudios", x => x.AnswerId);
+                    table.PrimaryKey("PK_RolePermissionConnections", x => x.RPCId);
                     table.ForeignKey(
-                        name: "FK_AudioAnswerQuestionedByAudios_AudioQuestionAnsweredByAudios_audioQuestionAnsweredByAudioId",
-                        column: x => x.audioQuestionAnsweredByAudioId,
-                        principalTable: "AudioQuestionAnsweredByAudios",
-                        principalColumn: "AudioQuestionId",
+                        name: "FK_RolePermissionConnections_Permissions_PermissionId",
+                        column: x => x.PermissionId,
+                        principalTable: "Permissions",
+                        principalColumn: "PermissionId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_AudioAnswerQuestionedByAudios_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
+                        name: "FK_RolePermissionConnections_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Roles",
+                        principalColumn: "RoleId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "selectingAnswerQuestionedByAudios",
+                name: "Users",
                 columns: table => new
                 {
-                    AnswerId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Score = table.Column<byte>(type: "TINYINT", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    audioQuestionAnsweredBySelectingId = table.Column<int>(type: "int", nullable: false)
+                    UserName = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    UserNandF = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    UserEmail = table.Column<string>(type: "nvarchar(90)", maxLength: 90, nullable: true),
+                    UserPhoneNumber = table.Column<string>(type: "nvarchar(16)", maxLength: 16, nullable: false),
+                    UserRegisterDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserAvatar = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserActiveCodeForEmail = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    UserActiveCodeForPhoneNumber = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    UserPassword = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
+                    BirthDate = table.Column<DateOnly>(type: "date", nullable: true),
+                    IsActived = table.Column<bool>(type: "bit", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_selectingAnswerQuestionedByAudios", x => x.AnswerId);
+                    table.PrimaryKey("PK_Users", x => x.UserId);
                     table.ForeignKey(
-                        name: "FK_selectingAnswerQuestionedByAudios_AudioQuestionAnsweredBySelectings_audioQuestionAnsweredBySelectingId",
-                        column: x => x.audioQuestionAnsweredBySelectingId,
-                        principalTable: "AudioQuestionAnsweredBySelectings",
-                        principalColumn: "AudioQuestionId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_selectingAnswerQuestionedByAudios_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TextAnswerQuestionedByAudios",
-                columns: table => new
-                {
-                    AnswerId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AnswerText = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Score = table.Column<byte>(type: "TINYINT", nullable: false),
-                    audioQuestionAnsweredBytextId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TextAnswerQuestionedByAudios", x => x.AnswerId);
-                    table.ForeignKey(
-                        name: "FK_TextAnswerQuestionedByAudios_AudioQuestionAnsweredByTexts_audioQuestionAnsweredBytextId",
-                        column: x => x.audioQuestionAnsweredBytextId,
-                        principalTable: "AudioQuestionAnsweredByTexts",
-                        principalColumn: "AudioQuestionId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_TextAnswerQuestionedByAudios_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AudioAnswerQuestionedByPictures",
-                columns: table => new
-                {
-                    AnswerId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Score = table.Column<byte>(type: "TINYINT", nullable: false),
-                    PictureQuestionAnsweredByAudioId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AudioAnswerQuestionedByPictures", x => x.AnswerId);
-                    table.ForeignKey(
-                        name: "FK_AudioAnswerQuestionedByPictures_PictureQuestionAnsweredByAudios_PictureQuestionAnsweredByAudioId",
-                        column: x => x.PictureQuestionAnsweredByAudioId,
-                        principalTable: "PictureQuestionAnsweredByAudios",
-                        principalColumn: "pictureQuestionId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_AudioAnswerQuestionedByPictures_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SelectingAnswerQuestionedByPictures",
-                columns: table => new
-                {
-                    AnswerId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Score = table.Column<byte>(type: "TINYINT", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    pictureQuestionAnsweredBySelectingId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SelectingAnswerQuestionedByPictures", x => x.AnswerId);
-                    table.ForeignKey(
-                        name: "FK_SelectingAnswerQuestionedByPictures_PictureQuestionAnsweredBySelectings_pictureQuestionAnsweredBySelectingId",
-                        column: x => x.pictureQuestionAnsweredBySelectingId,
-                        principalTable: "PictureQuestionAnsweredBySelectings",
-                        principalColumn: "pictureQuestionId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_SelectingAnswerQuestionedByPictures_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TextAnswerQuestionedByPictures",
-                columns: table => new
-                {
-                    AnswerId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AnswerText = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Score = table.Column<byte>(type: "TINYINT", nullable: false),
-                    pictureQuestionAnsweredByTextId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TextAnswerQuestionedByPictures", x => x.AnswerId);
-                    table.ForeignKey(
-                        name: "FK_TextAnswerQuestionedByPictures_PictureQuestionAnsweredByTexts_pictureQuestionAnsweredByTextId",
-                        column: x => x.pictureQuestionAnsweredByTextId,
-                        principalTable: "PictureQuestionAnsweredByTexts",
-                        principalColumn: "pictureQuestionId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_TextAnswerQuestionedByPictures_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AudioAnswerQuestionedByTexts",
-                columns: table => new
-                {
-                    AnswerId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Score = table.Column<byte>(type: "TINYINT", nullable: false),
-                    textualQuestionAnsweredByAudioId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AudioAnswerQuestionedByTexts", x => x.AnswerId);
-                    table.ForeignKey(
-                        name: "FK_AudioAnswerQuestionedByTexts_TextualQuestionAnsweredByAudios_textualQuestionAnsweredByAudioId",
-                        column: x => x.textualQuestionAnsweredByAudioId,
-                        principalTable: "TextualQuestionAnsweredByAudios",
-                        principalColumn: "textualQuestionId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_AudioAnswerQuestionedByTexts_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SelectingAnswerQuestionedByTexts",
-                columns: table => new
-                {
-                    AnswerId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Score = table.Column<byte>(type: "TINYINT", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    textualQuestionAnsweredBySelectingId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SelectingAnswerQuestionedByTexts", x => x.AnswerId);
-                    table.ForeignKey(
-                        name: "FK_SelectingAnswerQuestionedByTexts_TextualQuestionAnsweredBySelectings_textualQuestionAnsweredBySelectingId",
-                        column: x => x.textualQuestionAnsweredBySelectingId,
-                        principalTable: "TextualQuestionAnsweredBySelectings",
-                        principalColumn: "textualQuestionId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_SelectingAnswerQuestionedByTexts_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TextAnswerQuestionedByTexts",
-                columns: table => new
-                {
-                    AnswerId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AnswerText = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Score = table.Column<byte>(type: "TINYINT", nullable: false),
-                    textualQuestionAnsweredByTextId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TextAnswerQuestionedByTexts", x => x.AnswerId);
-                    table.ForeignKey(
-                        name: "FK_TextAnswerQuestionedByTexts_TextualQuestionAnsweredByTexts_textualQuestionAnsweredByTextId",
-                        column: x => x.textualQuestionAnsweredByTextId,
-                        principalTable: "TextualQuestionAnsweredByTexts",
-                        principalColumn: "textualQuestionId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_TextAnswerQuestionedByTexts_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "AudioAnswerQuestionedByVideos",
-                columns: table => new
-                {
-                    AnswerId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Score = table.Column<byte>(type: "TINYINT", nullable: false),
-                    videoQuestionAnsweredByAudioId = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AudioAnswerQuestionedByVideos", x => x.AnswerId);
-                    table.ForeignKey(
-                        name: "FK_AudioAnswerQuestionedByVideos_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_AudioAnswerQuestionedByVideos_VideoQuestionAnsweredByAudios_videoQuestionAnsweredByAudioId",
-                        column: x => x.videoQuestionAnsweredByAudioId,
-                        principalTable: "VideoQuestionAnsweredByAudios",
-                        principalColumn: "videoQuestionId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "SelectingAnswerQuestionedByVideos",
-                columns: table => new
-                {
-                    AnswerId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Score = table.Column<byte>(type: "TINYINT", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    videoQuestionAnsweredBySelectingId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SelectingAnswerQuestionedByVideos", x => x.AnswerId);
-                    table.ForeignKey(
-                        name: "FK_SelectingAnswerQuestionedByVideos_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_SelectingAnswerQuestionedByVideos_VideoQuestionAnsweredBySelectings_videoQuestionAnsweredBySelectingId",
-                        column: x => x.videoQuestionAnsweredBySelectingId,
-                        principalTable: "VideoQuestionAnsweredBySelectings",
-                        principalColumn: "videoQuestionId",
+                        name: "FK_Users_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Roles",
+                        principalColumn: "RoleId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -915,6 +632,397 @@ namespace MiladDarabzadeh.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AudioAnswerQuestionedByAudios",
+                columns: table => new
+                {
+                    AnswerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Score = table.Column<byte>(type: "TINYINT", nullable: false),
+                    audioQuestionAnsweredByAudioId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AudioAnswerQuestionedByAudios", x => x.AnswerId);
+                    table.ForeignKey(
+                        name: "FK_AudioAnswerQuestionedByAudios_AudioQuestionAnsweredByAudios_audioQuestionAnsweredByAudioId",
+                        column: x => x.audioQuestionAnsweredByAudioId,
+                        principalTable: "AudioQuestionAnsweredByAudios",
+                        principalColumn: "AudioQuestionId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AudioAnswerQuestionedByAudios_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AudioAnswerQuestionedByPictures",
+                columns: table => new
+                {
+                    AnswerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Score = table.Column<byte>(type: "TINYINT", nullable: false),
+                    PictureQuestionAnsweredByAudioId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AudioAnswerQuestionedByPictures", x => x.AnswerId);
+                    table.ForeignKey(
+                        name: "FK_AudioAnswerQuestionedByPictures_PictureQuestionAnsweredByAudios_PictureQuestionAnsweredByAudioId",
+                        column: x => x.PictureQuestionAnsweredByAudioId,
+                        principalTable: "PictureQuestionAnsweredByAudios",
+                        principalColumn: "pictureQuestionId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AudioAnswerQuestionedByPictures_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AudioAnswerQuestionedByTexts",
+                columns: table => new
+                {
+                    AnswerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Score = table.Column<byte>(type: "TINYINT", nullable: false),
+                    textualQuestionAnsweredByAudioId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AudioAnswerQuestionedByTexts", x => x.AnswerId);
+                    table.ForeignKey(
+                        name: "FK_AudioAnswerQuestionedByTexts_TextualQuestionAnsweredByAudios_textualQuestionAnsweredByAudioId",
+                        column: x => x.textualQuestionAnsweredByAudioId,
+                        principalTable: "TextualQuestionAnsweredByAudios",
+                        principalColumn: "textualQuestionId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AudioAnswerQuestionedByTexts_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AudioAnswerQuestionedByVideos",
+                columns: table => new
+                {
+                    AnswerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FileName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Score = table.Column<byte>(type: "TINYINT", nullable: false),
+                    videoQuestionAnsweredByAudioId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AudioAnswerQuestionedByVideos", x => x.AnswerId);
+                    table.ForeignKey(
+                        name: "FK_AudioAnswerQuestionedByVideos_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AudioAnswerQuestionedByVideos_VideoQuestionAnsweredByAudios_videoQuestionAnsweredByAudioId",
+                        column: x => x.videoQuestionAnsweredByAudioId,
+                        principalTable: "VideoQuestionAnsweredByAudios",
+                        principalColumn: "videoQuestionId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Courses",
+                columns: table => new
+                {
+                    CourseId = table.Column<int>(type: "int", nullable: false),
+                    CourseName = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    CourseDescription = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CourseTags = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    CourseUrl = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    FirstTimeMadeDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    NamesOfTheBooks = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    MinAge = table.Column<byte>(type: "TINYINT", nullable: true),
+                    MaxAge = table.Column<byte>(type: "TINYINT", nullable: true),
+                    RangeOfIELTSInThisCourse = table.Column<byte>(type: "TINYINT", nullable: true),
+                    RangeOfListeningInThisCourse = table.Column<byte>(type: "TINYINT", nullable: true),
+                    RangeOfWritingInThisCourse = table.Column<byte>(type: "TINYINT", nullable: true),
+                    RangeOfReadingInThisCourse = table.Column<byte>(type: "TINYINT", nullable: true),
+                    RangeOfSpeakingInThisCourse = table.Column<byte>(type: "TINYINT", nullable: true),
+                    ShortDescription = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    LoanPayments = table.Column<bool>(type: "bit", nullable: false),
+                    Certificate = table.Column<bool>(type: "bit", nullable: false),
+                    CourseImage = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DemoFileName = table.Column<string>(type: "nvarchar(250)", maxLength: 100, nullable: true),
+                    GroupId = table.Column<int>(type: "int", nullable: false),
+                    SubGroupId = table.Column<int>(type: "int", nullable: true),
+                    TeacherId = table.Column<int>(type: "int", nullable: false),
+                    StatusId = table.Column<int>(type: "int", nullable: false),
+                    LevelId = table.Column<byte>(type: "TINYINT", nullable: false),
+                    SupplementId = table.Column<int>(type: "int", nullable: false),
+                    TestId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Courses", x => x.CourseId);
+                    table.ForeignKey(
+                        name: "FK_Courses_CourseGroups_GroupId",
+                        column: x => x.GroupId,
+                        principalTable: "CourseGroups",
+                        principalColumn: "GroupId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Courses_CourseGroups_SubGroupId",
+                        column: x => x.SubGroupId,
+                        principalTable: "CourseGroups",
+                        principalColumn: "GroupId");
+                    table.ForeignKey(
+                        name: "FK_Courses_CourseLevels_LevelId",
+                        column: x => x.LevelId,
+                        principalTable: "CourseLevels",
+                        principalColumn: "LevelId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Courses_Users_TeacherId",
+                        column: x => x.TeacherId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Orders",
+                columns: table => new
+                {
+                    OrderId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Sum = table.Column<int>(type: "int", nullable: false),
+                    CreateDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsFinally = table.Column<bool>(type: "bit", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    DiscountId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Orders", x => x.OrderId);
+                    table.ForeignKey(
+                        name: "FK_Orders_OrderDiscounts_DiscountId",
+                        column: x => x.DiscountId,
+                        principalTable: "OrderDiscounts",
+                        principalColumn: "OrderDiscounId");
+                    table.ForeignKey(
+                        name: "FK_Orders_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "selectingAnswerQuestionedByAudios",
+                columns: table => new
+                {
+                    AnswerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Score = table.Column<byte>(type: "TINYINT", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    audioQuestionAnsweredBySelectingId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_selectingAnswerQuestionedByAudios", x => x.AnswerId);
+                    table.ForeignKey(
+                        name: "FK_selectingAnswerQuestionedByAudios_AudioQuestionAnsweredBySelectings_audioQuestionAnsweredBySelectingId",
+                        column: x => x.audioQuestionAnsweredBySelectingId,
+                        principalTable: "AudioQuestionAnsweredBySelectings",
+                        principalColumn: "AudioQuestionId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_selectingAnswerQuestionedByAudios_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SelectingAnswerQuestionedByPictures",
+                columns: table => new
+                {
+                    AnswerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Score = table.Column<byte>(type: "TINYINT", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    pictureQuestionAnsweredBySelectingId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SelectingAnswerQuestionedByPictures", x => x.AnswerId);
+                    table.ForeignKey(
+                        name: "FK_SelectingAnswerQuestionedByPictures_PictureQuestionAnsweredBySelectings_pictureQuestionAnsweredBySelectingId",
+                        column: x => x.pictureQuestionAnsweredBySelectingId,
+                        principalTable: "PictureQuestionAnsweredBySelectings",
+                        principalColumn: "pictureQuestionId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SelectingAnswerQuestionedByPictures_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SelectingAnswerQuestionedByTexts",
+                columns: table => new
+                {
+                    AnswerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Score = table.Column<byte>(type: "TINYINT", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    textualQuestionAnsweredBySelectingId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SelectingAnswerQuestionedByTexts", x => x.AnswerId);
+                    table.ForeignKey(
+                        name: "FK_SelectingAnswerQuestionedByTexts_TextualQuestionAnsweredBySelectings_textualQuestionAnsweredBySelectingId",
+                        column: x => x.textualQuestionAnsweredBySelectingId,
+                        principalTable: "TextualQuestionAnsweredBySelectings",
+                        principalColumn: "textualQuestionId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SelectingAnswerQuestionedByTexts_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SelectingAnswerQuestionedByVideos",
+                columns: table => new
+                {
+                    AnswerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Score = table.Column<byte>(type: "TINYINT", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    videoQuestionAnsweredBySelectingId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SelectingAnswerQuestionedByVideos", x => x.AnswerId);
+                    table.ForeignKey(
+                        name: "FK_SelectingAnswerQuestionedByVideos_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SelectingAnswerQuestionedByVideos_VideoQuestionAnsweredBySelectings_videoQuestionAnsweredBySelectingId",
+                        column: x => x.videoQuestionAnsweredBySelectingId,
+                        principalTable: "VideoQuestionAnsweredBySelectings",
+                        principalColumn: "videoQuestionId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TextAnswerQuestionedByAudios",
+                columns: table => new
+                {
+                    AnswerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AnswerText = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Score = table.Column<byte>(type: "TINYINT", nullable: false),
+                    audioQuestionAnsweredBytextId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TextAnswerQuestionedByAudios", x => x.AnswerId);
+                    table.ForeignKey(
+                        name: "FK_TextAnswerQuestionedByAudios_AudioQuestionAnsweredByTexts_audioQuestionAnsweredBytextId",
+                        column: x => x.audioQuestionAnsweredBytextId,
+                        principalTable: "AudioQuestionAnsweredByTexts",
+                        principalColumn: "AudioQuestionId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TextAnswerQuestionedByAudios_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TextAnswerQuestionedByPictures",
+                columns: table => new
+                {
+                    AnswerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AnswerText = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Score = table.Column<byte>(type: "TINYINT", nullable: false),
+                    pictureQuestionAnsweredByTextId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TextAnswerQuestionedByPictures", x => x.AnswerId);
+                    table.ForeignKey(
+                        name: "FK_TextAnswerQuestionedByPictures_PictureQuestionAnsweredByTexts_pictureQuestionAnsweredByTextId",
+                        column: x => x.pictureQuestionAnsweredByTextId,
+                        principalTable: "PictureQuestionAnsweredByTexts",
+                        principalColumn: "pictureQuestionId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TextAnswerQuestionedByPictures_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TextAnswerQuestionedByTexts",
+                columns: table => new
+                {
+                    AnswerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    AnswerText = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Score = table.Column<byte>(type: "TINYINT", nullable: false),
+                    textualQuestionAnsweredByTextId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TextAnswerQuestionedByTexts", x => x.AnswerId);
+                    table.ForeignKey(
+                        name: "FK_TextAnswerQuestionedByTexts_TextualQuestionAnsweredByTexts_textualQuestionAnsweredByTextId",
+                        column: x => x.textualQuestionAnsweredByTextId,
+                        principalTable: "TextualQuestionAnsweredByTexts",
+                        principalColumn: "textualQuestionId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_TextAnswerQuestionedByTexts_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TextAnswerQuestionedByVIdeos",
                 columns: table => new
                 {
@@ -942,19 +1050,194 @@ namespace MiladDarabzadeh.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.UpdateData(
-                table: "Users",
-                keyColumn: "UserId",
-                keyValue: 1,
-                column: "UserRegisterDate",
-                value: new DateTime(2024, 8, 17, 7, 24, 2, 114, DateTimeKind.Local).AddTicks(1635));
+            migrationBuilder.CreateTable(
+                name: "UserScoreExams",
+                columns: table => new
+                {
+                    USEId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Score = table.Column<byte>(type: "TINYINT", nullable: false),
+                    ExamDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    ExamId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserScoreExams", x => x.USEId);
+                    table.ForeignKey(
+                        name: "FK_UserScoreExams_Exams_ExamId",
+                        column: x => x.ExamId,
+                        principalTable: "Exams",
+                        principalColumn: "ExamId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserScoreExams_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
 
-            migrationBuilder.UpdateData(
+            migrationBuilder.CreateTable(
+                name: "CourseCycles",
+                columns: table => new
+                {
+                    CycleId = table.Column<int>(type: "int", nullable: false),
+                    CycleTitle = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false),
+                    StartDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    EndDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    CyclePrice = table.Column<int>(type: "int", nullable: false),
+                    CourseId = table.Column<int>(type: "int", nullable: false),
+                    DiscountId = table.Column<int>(type: "int", nullable: true),
+                    NumberOfSessions = table.Column<byte>(type: "TINYINT", nullable: false),
+                    CycleModelId = table.Column<byte>(type: "TINYINT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseCycles", x => x.CycleId);
+                    table.ForeignKey(
+                        name: "FK_CourseCycles_CourseDiscounts_DiscountId",
+                        column: x => x.DiscountId,
+                        principalTable: "CourseDiscounts",
+                        principalColumn: "DiscountId");
+                    table.ForeignKey(
+                        name: "FK_CourseCycles_Courses_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "Courses",
+                        principalColumn: "CourseId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CourseCycles_CycleModels_CycleModelId",
+                        column: x => x.CycleModelId,
+                        principalTable: "CycleModels",
+                        principalColumn: "CycleModelId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CourseModelConnections",
+                columns: table => new
+                {
+                    CMCId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CourseId = table.Column<int>(type: "int", nullable: false),
+                    ModelId = table.Column<byte>(type: "TINYINT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CourseModelConnections", x => x.CMCId);
+                    table.ForeignKey(
+                        name: "FK_CourseModelConnections_CourseModels_ModelId",
+                        column: x => x.ModelId,
+                        principalTable: "CourseModels",
+                        principalColumn: "CourseModelId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CourseModelConnections_Courses_CourseId",
+                        column: x => x.CourseId,
+                        principalTable: "Courses",
+                        principalColumn: "CourseId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ExamCycleConnections",
+                columns: table => new
+                {
+                    ECCId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ExamId = table.Column<int>(type: "int", nullable: false),
+                    CycleId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ExamCycleConnections", x => x.ECCId);
+                    table.ForeignKey(
+                        name: "FK_ExamCycleConnections_CourseCycles_CycleId",
+                        column: x => x.CycleId,
+                        principalTable: "CourseCycles",
+                        principalColumn: "CycleId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_ExamCycleConnections_Exams_ExamId",
+                        column: x => x.ExamId,
+                        principalTable: "Exams",
+                        principalColumn: "ExamId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SubCycles",
+                columns: table => new
+                {
+                    SubCycleId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SesionID = table.Column<int>(type: "int", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CourseCycleId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubCycles", x => x.SubCycleId);
+                    table.ForeignKey(
+                        name: "FK_SubCycles_CourseCycles_CourseCycleId",
+                        column: x => x.CourseCycleId,
+                        principalTable: "CourseCycles",
+                        principalColumn: "CycleId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SubOrders",
+                columns: table => new
+                {
+                    SubOrderId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CyclePrice = table.Column<int>(type: "int", nullable: false),
+                    CycleId = table.Column<int>(type: "int", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: false),
+                    DiscountId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SubOrders", x => x.SubOrderId);
+                    table.ForeignKey(
+                        name: "FK_SubOrders_CourseCycles_CycleId",
+                        column: x => x.CycleId,
+                        principalTable: "CourseCycles",
+                        principalColumn: "CycleId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_SubOrders_CourseDiscounts_DiscountId",
+                        column: x => x.DiscountId,
+                        principalTable: "CourseDiscounts",
+                        principalColumn: "DiscountId");
+                    table.ForeignKey(
+                        name: "FK_SubOrders_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "OrderId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Roles",
+                columns: new[] { "RoleId", "RoleTitle" },
+                values: new object[,]
+                {
+                    { 1, "Admin" },
+                    { 2, "Student" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Users",
-                keyColumn: "UserId",
-                keyValue: 2,
-                column: "UserRegisterDate",
-                value: new DateTime(2024, 8, 17, 7, 24, 2, 114, DateTimeKind.Local).AddTicks(1643));
+                columns: new[] { "UserId", "BirthDate", "IsActived", "RoleId", "UserActiveCodeForEmail", "UserActiveCodeForPhoneNumber", "UserAvatar", "UserEmail", "UserName", "UserNandF", "UserPassword", "UserPhoneNumber", "UserRegisterDate" },
+                values: new object[,]
+                {
+                    { 1, null, true, 1, "0569d3e33ac94bcc8c5ee4f93320db45", "0569d3e33ac94bcc8c5ee4f93320db45", "Defult.jpg", "Milad.tutor@gmail.com", "MiladDarabzadeh", "Milad Darabzadeh", "62-D5-ED-C9-B0-AD-74-B5-AE-96-2E-5F-7F-C7-91-51", "09139279581", new DateTime(2024, 8, 18, 23, 54, 9, 904, DateTimeKind.Local).AddTicks(6923) },
+                    { 2, null, true, 1, "c53eac7994034d13a36e475e1e00fcac", "c53eac7994034d13a36e475e1e00fcac", "cc4129b2b7db4c1ea499fa5a6208df5d.jpg", "alibarzegar013@gmail.com", "AliBarzegar", "Ali Barzegar", "0C-0B-33-26-C9-5A-66-D7-37-7A-0A-2F-75-DA-AC-34", "09397894663", new DateTime(2024, 8, 18, 23, 54, 9, 904, DateTimeKind.Local).AddTicks(6930) }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AudioAnswerQuestionedByAudios_audioQuestionAnsweredByAudioId",
@@ -1012,6 +1295,56 @@ namespace MiladDarabzadeh.Data.Migrations
                 column: "QuestionGroupId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CourseCycles_CourseId",
+                table: "CourseCycles",
+                column: "CourseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CourseCycles_CycleModelId",
+                table: "CourseCycles",
+                column: "CycleModelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CourseCycles_DiscountId",
+                table: "CourseCycles",
+                column: "DiscountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CourseGroups_ParentId",
+                table: "CourseGroups",
+                column: "ParentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CourseModelConnections_CourseId",
+                table: "CourseModelConnections",
+                column: "CourseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CourseModelConnections_ModelId",
+                table: "CourseModelConnections",
+                column: "ModelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Courses_GroupId",
+                table: "Courses",
+                column: "GroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Courses_LevelId",
+                table: "Courses",
+                column: "LevelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Courses_SubGroupId",
+                table: "Courses",
+                column: "SubGroupId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Courses_TeacherId",
+                table: "Courses",
+                column: "TeacherId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ExamCycleConnections_CycleId",
                 table: "ExamCycleConnections",
                 column: "CycleId");
@@ -1020,6 +1353,16 @@ namespace MiladDarabzadeh.Data.Migrations
                 name: "IX_ExamCycleConnections_ExamId",
                 table: "ExamCycleConnections",
                 column: "ExamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_DiscountId",
+                table: "Orders",
+                column: "DiscountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Orders_UserId",
+                table: "Orders",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PictureQuestionAnsweredByAudios_QuestionGroupId",
@@ -1102,6 +1445,16 @@ namespace MiladDarabzadeh.Data.Migrations
                 column: "videoQuestionAnsweredByTextId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RolePermissionConnections_PermissionId",
+                table: "RolePermissionConnections",
+                column: "PermissionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RolePermissionConnections_RoleId",
+                table: "RolePermissionConnections",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_selectingAnswerQuestionedByAudios_audioQuestionAnsweredBySelectingId",
                 table: "selectingAnswerQuestionedByAudios",
                 column: "audioQuestionAnsweredBySelectingId");
@@ -1140,6 +1493,26 @@ namespace MiladDarabzadeh.Data.Migrations
                 name: "IX_SelectingAnswerQuestionedByVideos_videoQuestionAnsweredBySelectingId",
                 table: "SelectingAnswerQuestionedByVideos",
                 column: "videoQuestionAnsweredBySelectingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubCycles_CourseCycleId",
+                table: "SubCycles",
+                column: "CourseCycleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubOrders_CycleId",
+                table: "SubOrders",
+                column: "CycleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubOrders_DiscountId",
+                table: "SubOrders",
+                column: "DiscountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubOrders_OrderId",
+                table: "SubOrders",
+                column: "OrderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TextAnswerQuestionedByAudios_audioQuestionAnsweredBytextId",
@@ -1197,6 +1570,11 @@ namespace MiladDarabzadeh.Data.Migrations
                 column: "QuestionGroupId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Users_RoleId",
+                table: "Users",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_UserScoreExams_ExamId",
                 table: "UserScoreExams",
                 column: "ExamId");
@@ -1220,94 +1598,11 @@ namespace MiladDarabzadeh.Data.Migrations
                 name: "IX_VideoQuestionAnsweredByTexts_QuestionGroupId",
                 table: "VideoQuestionAnsweredByTexts",
                 column: "QuestionGroupId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_CourseCycles_CourseDiscounts_DiscountId",
-                table: "CourseCycles",
-                column: "DiscountId",
-                principalTable: "CourseDiscounts",
-                principalColumn: "DiscountId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_CourseCycles_Courses_CourseId",
-                table: "CourseCycles",
-                column: "CourseId",
-                principalTable: "Courses",
-                principalColumn: "CourseId",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_CourseCycles_CycleModels_CycleModelId",
-                table: "CourseCycles",
-                column: "CycleModelId",
-                principalTable: "CycleModels",
-                principalColumn: "CycleModelId",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_CourseModelConnections_CourseModels_ModelId",
-                table: "CourseModelConnections",
-                column: "ModelId",
-                principalTable: "CourseModels",
-                principalColumn: "CourseModelId",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_CourseModelConnections_Courses_CourseId",
-                table: "CourseModelConnections",
-                column: "CourseId",
-                principalTable: "Courses",
-                principalColumn: "CourseId",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_SubCycles_CourseCycles_CourseCycleId",
-                table: "SubCycles",
-                column: "CourseCycleId",
-                principalTable: "CourseCycles",
-                principalColumn: "CycleId",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_SubOrders_CourseCycles_CycleId",
-                table: "SubOrders",
-                column: "CycleId",
-                principalTable: "CourseCycles",
-                principalColumn: "CycleId",
-                onDelete: ReferentialAction.Restrict);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_CourseCycles_CourseDiscounts_DiscountId",
-                table: "CourseCycles");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_CourseCycles_Courses_CourseId",
-                table: "CourseCycles");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_CourseCycles_CycleModels_CycleModelId",
-                table: "CourseCycles");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_CourseModelConnections_CourseModels_ModelId",
-                table: "CourseModelConnections");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_CourseModelConnections_Courses_CourseId",
-                table: "CourseModelConnections");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_SubCycles_CourseCycles_CourseCycleId",
-                table: "SubCycles");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_SubOrders_CourseCycles_CycleId",
-                table: "SubOrders");
-
             migrationBuilder.DropTable(
                 name: "AudioAnswerQuestionedByAudios");
 
@@ -1321,10 +1616,16 @@ namespace MiladDarabzadeh.Data.Migrations
                 name: "AudioAnswerQuestionedByVideos");
 
             migrationBuilder.DropTable(
+                name: "CourseModelConnections");
+
+            migrationBuilder.DropTable(
                 name: "ExamCycleConnections");
 
             migrationBuilder.DropTable(
                 name: "QuestionExamConnections");
+
+            migrationBuilder.DropTable(
+                name: "RolePermissionConnections");
 
             migrationBuilder.DropTable(
                 name: "selectingAnswerQuestionedByAudios");
@@ -1337,6 +1638,12 @@ namespace MiladDarabzadeh.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "SelectingAnswerQuestionedByVideos");
+
+            migrationBuilder.DropTable(
+                name: "SubCycles");
+
+            migrationBuilder.DropTable(
+                name: "SubOrders");
 
             migrationBuilder.DropTable(
                 name: "TextAnswerQuestionedByAudios");
@@ -1354,6 +1661,9 @@ namespace MiladDarabzadeh.Data.Migrations
                 name: "UserScoreExams");
 
             migrationBuilder.DropTable(
+                name: "CourseModels");
+
+            migrationBuilder.DropTable(
                 name: "AudioQuestionAnsweredByAudios");
 
             migrationBuilder.DropTable(
@@ -1366,6 +1676,9 @@ namespace MiladDarabzadeh.Data.Migrations
                 name: "VideoQuestionAnsweredByAudios");
 
             migrationBuilder.DropTable(
+                name: "Permissions");
+
+            migrationBuilder.DropTable(
                 name: "AudioQuestionAnsweredBySelectings");
 
             migrationBuilder.DropTable(
@@ -1376,6 +1689,12 @@ namespace MiladDarabzadeh.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "VideoQuestionAnsweredBySelectings");
+
+            migrationBuilder.DropTable(
+                name: "CourseCycles");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "AudioQuestionAnsweredByTexts");
@@ -1393,145 +1712,31 @@ namespace MiladDarabzadeh.Data.Migrations
                 name: "Exams");
 
             migrationBuilder.DropTable(
+                name: "CourseDiscounts");
+
+            migrationBuilder.DropTable(
+                name: "Courses");
+
+            migrationBuilder.DropTable(
+                name: "CycleModels");
+
+            migrationBuilder.DropTable(
+                name: "OrderDiscounts");
+
+            migrationBuilder.DropTable(
                 name: "QuestionGroups");
 
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_SubCycles",
-                table: "SubCycles");
+            migrationBuilder.DropTable(
+                name: "CourseGroups");
 
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_CourseModelConnections",
-                table: "CourseModelConnections");
+            migrationBuilder.DropTable(
+                name: "CourseLevels");
 
-            migrationBuilder.DropPrimaryKey(
-                name: "PK_CourseCycles",
-                table: "CourseCycles");
+            migrationBuilder.DropTable(
+                name: "Users");
 
-            migrationBuilder.RenameTable(
-                name: "SubCycles",
-                newName: "SubCycls");
-
-            migrationBuilder.RenameTable(
-                name: "CourseModelConnections",
-                newName: "ModelConnections");
-
-            migrationBuilder.RenameTable(
-                name: "CourseCycles",
-                newName: "CourseCycls");
-
-            migrationBuilder.RenameIndex(
-                name: "IX_SubCycles_CourseCycleId",
-                table: "SubCycls",
-                newName: "IX_SubCycls_CourseCycleId");
-
-            migrationBuilder.RenameIndex(
-                name: "IX_CourseModelConnections_ModelId",
-                table: "ModelConnections",
-                newName: "IX_ModelConnections_ModelId");
-
-            migrationBuilder.RenameIndex(
-                name: "IX_CourseModelConnections_CourseId",
-                table: "ModelConnections",
-                newName: "IX_ModelConnections_CourseId");
-
-            migrationBuilder.RenameIndex(
-                name: "IX_CourseCycles_DiscountId",
-                table: "CourseCycls",
-                newName: "IX_CourseCycls_DiscountId");
-
-            migrationBuilder.RenameIndex(
-                name: "IX_CourseCycles_CycleModelId",
-                table: "CourseCycls",
-                newName: "IX_CourseCycls_CycleModelId");
-
-            migrationBuilder.RenameIndex(
-                name: "IX_CourseCycles_CourseId",
-                table: "CourseCycls",
-                newName: "IX_CourseCycls_CourseId");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_SubCycls",
-                table: "SubCycls",
-                column: "SubCycleId");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_ModelConnections",
-                table: "ModelConnections",
-                column: "CMCId");
-
-            migrationBuilder.AddPrimaryKey(
-                name: "PK_CourseCycls",
-                table: "CourseCycls",
-                column: "CycleId");
-
-            migrationBuilder.UpdateData(
-                table: "Users",
-                keyColumn: "UserId",
-                keyValue: 1,
-                column: "UserRegisterDate",
-                value: new DateTime(2024, 7, 24, 3, 30, 36, 261, DateTimeKind.Local).AddTicks(988));
-
-            migrationBuilder.UpdateData(
-                table: "Users",
-                keyColumn: "UserId",
-                keyValue: 2,
-                column: "UserRegisterDate",
-                value: new DateTime(2024, 7, 24, 3, 30, 36, 261, DateTimeKind.Local).AddTicks(997));
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_CourseCycls_CourseDiscounts_DiscountId",
-                table: "CourseCycls",
-                column: "DiscountId",
-                principalTable: "CourseDiscounts",
-                principalColumn: "DiscountId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_CourseCycls_Courses_CourseId",
-                table: "CourseCycls",
-                column: "CourseId",
-                principalTable: "Courses",
-                principalColumn: "CourseId",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_CourseCycls_CycleModels_CycleModelId",
-                table: "CourseCycls",
-                column: "CycleModelId",
-                principalTable: "CycleModels",
-                principalColumn: "CycleModelId",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_ModelConnections_CourseModels_ModelId",
-                table: "ModelConnections",
-                column: "ModelId",
-                principalTable: "CourseModels",
-                principalColumn: "CourseModelId",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_ModelConnections_Courses_CourseId",
-                table: "ModelConnections",
-                column: "CourseId",
-                principalTable: "Courses",
-                principalColumn: "CourseId",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_SubCycls_CourseCycls_CourseCycleId",
-                table: "SubCycls",
-                column: "CourseCycleId",
-                principalTable: "CourseCycls",
-                principalColumn: "CycleId",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_SubOrders_CourseCycls_CycleId",
-                table: "SubOrders",
-                column: "CycleId",
-                principalTable: "CourseCycls",
-                principalColumn: "CycleId",
-                onDelete: ReferentialAction.Restrict);
+            migrationBuilder.DropTable(
+                name: "Roles");
         }
     }
 }

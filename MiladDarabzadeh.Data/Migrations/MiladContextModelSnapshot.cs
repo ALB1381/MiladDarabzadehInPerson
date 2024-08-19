@@ -1631,7 +1631,7 @@ namespace MiladDarabzadeh.Data.Migrations
                             UserNandF = "Milad Darabzadeh",
                             UserPassword = "62-D5-ED-C9-B0-AD-74-B5-AE-96-2E-5F-7F-C7-91-51",
                             UserPhoneNumber = "09139279581",
-                            UserRegisterDate = new DateTime(2024, 8, 17, 7, 24, 2, 114, DateTimeKind.Local).AddTicks(1635)
+                            UserRegisterDate = new DateTime(2024, 8, 18, 23, 54, 9, 904, DateTimeKind.Local).AddTicks(6923)
                         },
                         new
                         {
@@ -1646,7 +1646,7 @@ namespace MiladDarabzadeh.Data.Migrations
                             UserNandF = "Ali Barzegar",
                             UserPassword = "0C-0B-33-26-C9-5A-66-D7-37-7A-0A-2F-75-DA-AC-34",
                             UserPhoneNumber = "09397894663",
-                            UserRegisterDate = new DateTime(2024, 8, 17, 7, 24, 2, 114, DateTimeKind.Local).AddTicks(1643)
+                            UserRegisterDate = new DateTime(2024, 8, 18, 23, 54, 9, 904, DateTimeKind.Local).AddTicks(6930)
                         });
                 });
 
@@ -1748,7 +1748,7 @@ namespace MiladDarabzadeh.Data.Migrations
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.EnglishExam.Answers.audioQuestionAnswers.TextAnswerQuestionedByAudio", b =>
                 {
                     b.HasOne("MiladDarabzadeh.Data.Entities.User.User", "User")
-                        .WithMany("TextAnswerQuestionedByAudios")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1767,13 +1767,13 @@ namespace MiladDarabzadeh.Data.Migrations
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.EnglishExam.Answers.audioQuestionAnswers.audioAnswerQuestionedByAudio", b =>
                 {
                     b.HasOne("MiladDarabzadeh.Data.Entities.User.User", "User")
-                        .WithMany("AudioAnswerQuestionedByAudios")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MiladDarabzadeh.Data.Entities.EnglishExam.Questions.AudioQuestions.audioQuestionAnsweredByAudio", "audioQuestionAnsweredByAudio")
-                        .WithMany("AudioAnswerQuestionedByAudios")
+                        .WithMany()
                         .HasForeignKey("audioQuestionAnsweredByAudioId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1786,13 +1786,13 @@ namespace MiladDarabzadeh.Data.Migrations
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.EnglishExam.Answers.audioQuestionAnswers.selectingAnswerQuestionedByAudio", b =>
                 {
                     b.HasOne("MiladDarabzadeh.Data.Entities.User.User", "User")
-                        .WithMany("SelectingAnswerQuestionedByAudios")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("MiladDarabzadeh.Data.Entities.EnglishExam.Questions.AudioQuestions.audioQuestionAnsweredBySelecting", "audioQuestionAnsweredBySelecting")
-                        .WithMany("SelectingAnswerQuestionedByAudios")
+                        .WithMany()
                         .HasForeignKey("audioQuestionAnsweredBySelectingId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1811,7 +1811,7 @@ namespace MiladDarabzadeh.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("MiladDarabzadeh.Data.Entities.User.User", "User")
-                        .WithMany("AudioAnswerQuestionedByPictures")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1824,7 +1824,7 @@ namespace MiladDarabzadeh.Data.Migrations
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.EnglishExam.Answers.pictureQuestionAnswers.SelectingAnswerQuestionedByPicture", b =>
                 {
                     b.HasOne("MiladDarabzadeh.Data.Entities.User.User", "User")
-                        .WithMany("SelectingAnswerQuestionedByPictures")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1843,7 +1843,7 @@ namespace MiladDarabzadeh.Data.Migrations
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.EnglishExam.Answers.pictureQuestionAnswers.TextAnswerQuestionedByPicture", b =>
                 {
                     b.HasOne("MiladDarabzadeh.Data.Entities.User.User", "User")
-                        .WithMany("TextAnswerQuestionedByPictures")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1862,7 +1862,7 @@ namespace MiladDarabzadeh.Data.Migrations
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.EnglishExam.Answers.textualQuestionAnswers.AudioAnswerQuestionedByText", b =>
                 {
                     b.HasOne("MiladDarabzadeh.Data.Entities.User.User", "User")
-                        .WithMany("AudioAnswerQuestionedByTexts")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1881,7 +1881,7 @@ namespace MiladDarabzadeh.Data.Migrations
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.EnglishExam.Answers.textualQuestionAnswers.SelectingAnswerQuestionedByText", b =>
                 {
                     b.HasOne("MiladDarabzadeh.Data.Entities.User.User", "User")
-                        .WithMany("SelectingAnswerQuestionedByTexts")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1900,7 +1900,7 @@ namespace MiladDarabzadeh.Data.Migrations
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.EnglishExam.Answers.textualQuestionAnswers.TextAnswerQuestionedByText", b =>
                 {
                     b.HasOne("MiladDarabzadeh.Data.Entities.User.User", "User")
-                        .WithMany("TextAnswerQuestionedByTexts")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1919,7 +1919,7 @@ namespace MiladDarabzadeh.Data.Migrations
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.EnglishExam.Answers.videoQuestionAnswers.AudioAnswerQuestionedByVideo", b =>
                 {
                     b.HasOne("MiladDarabzadeh.Data.Entities.User.User", "User")
-                        .WithMany("AudioAnswerQuestionedByVideos")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1938,7 +1938,7 @@ namespace MiladDarabzadeh.Data.Migrations
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.EnglishExam.Answers.videoQuestionAnswers.SelectingAnswerQuestionedByVideo", b =>
                 {
                     b.HasOne("MiladDarabzadeh.Data.Entities.User.User", "User")
-                        .WithMany("SelectingAnswerQuestionedByVideos")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -1957,7 +1957,7 @@ namespace MiladDarabzadeh.Data.Migrations
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.EnglishExam.Answers.videoQuestionAnswers.TextAnswerQuestionedByVIdeo", b =>
                 {
                     b.HasOne("MiladDarabzadeh.Data.Entities.User.User", "User")
-                        .WithMany("TextAnswerQuestionedByVIdeos")
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
@@ -2361,16 +2361,12 @@ namespace MiladDarabzadeh.Data.Migrations
 
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.EnglishExam.Questions.AudioQuestions.audioQuestionAnsweredByAudio", b =>
                 {
-                    b.Navigation("AudioAnswerQuestionedByAudios");
-
                     b.Navigation("QuestionExamConnections");
                 });
 
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.EnglishExam.Questions.AudioQuestions.audioQuestionAnsweredBySelecting", b =>
                 {
                     b.Navigation("QuestionExamConnections");
-
-                    b.Navigation("SelectingAnswerQuestionedByAudios");
                 });
 
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.EnglishExam.Questions.AudioQuestions.audioQuestionAnsweredByText", b =>
@@ -2487,31 +2483,7 @@ namespace MiladDarabzadeh.Data.Migrations
 
             modelBuilder.Entity("MiladDarabzadeh.Data.Entities.User.User", b =>
                 {
-                    b.Navigation("AudioAnswerQuestionedByAudios");
-
-                    b.Navigation("AudioAnswerQuestionedByPictures");
-
-                    b.Navigation("AudioAnswerQuestionedByTexts");
-
-                    b.Navigation("AudioAnswerQuestionedByVideos");
-
-                    b.Navigation("SelectingAnswerQuestionedByAudios");
-
-                    b.Navigation("SelectingAnswerQuestionedByPictures");
-
-                    b.Navigation("SelectingAnswerQuestionedByTexts");
-
-                    b.Navigation("SelectingAnswerQuestionedByVideos");
-
                     b.Navigation("TeacherCourses");
-
-                    b.Navigation("TextAnswerQuestionedByAudios");
-
-                    b.Navigation("TextAnswerQuestionedByPictures");
-
-                    b.Navigation("TextAnswerQuestionedByTexts");
-
-                    b.Navigation("TextAnswerQuestionedByVIdeos");
                 });
 #pragma warning restore 612, 618
         }
