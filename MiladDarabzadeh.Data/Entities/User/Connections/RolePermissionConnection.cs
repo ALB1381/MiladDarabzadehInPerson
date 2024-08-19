@@ -13,6 +13,7 @@ namespace MiladDarabzadeh.Data.Entities.User.Connections
         [Key]
         public int RPCId { get; set; }  
 
+
         public int RoleId { get; set; }
         public int PermissionId { get; set; }
 
