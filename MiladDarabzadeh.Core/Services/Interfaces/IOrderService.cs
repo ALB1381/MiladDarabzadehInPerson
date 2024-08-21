@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MiladDarabzadeh.Core.Services.Interfaces
 {
-    public class IOrderService
+    public interface IOrderService
     {
     }
 }

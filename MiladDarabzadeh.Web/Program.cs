@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using MiladDarabzadeh.Core.Convertors;
+using MiladDarabzadeh.Core.Services;
+using MiladDarabzadeh.Core.Services.Interfaces;
 using MiladDarabzadeh.Data.Context;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,24 +36,15 @@ builder.Services.AddDbContext<MiladContext>(options =>
 #endregion
 
 #region IOC
-
-//builder.Services.AddTransient<IUserService, UserService>();
-//builder.Services.AddTransient<IToolsService, ToolsService>();
-//builder.Services.AddTransient<ICourseService, CourseService>();
-//builder.Services.AddTransient<IResponsiveItemsService, ResponsiveItemsService>();
-//builder.Services.AddTransient<IViewRenderService, RenderViewToString>();
-//builder.Services.AddTransient<IPermissionService, PermissionService>();
-//builder.Services.AddTransient<IAdminService, AdminService>();
-//builder.Services.AddTransient<IDiscountService, DiscountService>();
-//builder.Services.AddTransient<IOrderService, OrderService>();
-//builder.Services.AddTransient<IEpisodeService, EpisodeService>();
-//builder.Services.AddTransient<IScoreService, ScoreService>();
-//builder.Services.AddTransient<IExamSrvice, ExamSrvice>();
-//builder.Services.AddTransient<IDateService, DateService>();
-//builder.Services.AddTransient<IPresntAbsentService, PresntAbsentService>();
-//builder.Services.AddTransient<IUserScoreService, UserScoreService>();
-//builder.Services.AddTransient<IChatService, ChatService>();
-
+builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IToolsService, ToolsService>();
+builder.Services.AddTransient<ICourseService, CourseService>();
+builder.Services.AddTransient<IResponsiveItemsService, ResponsiveItemsService>();
+builder.Services.AddTransient<IViewRenderService, RenderViewToString>();
+builder.Services.AddTransient<IRoleAndPermissionService, RoleAndPermissionService>();
+builder.Services.AddTransient<IDiscountService, DiscountService>();
+builder.Services.AddTransient<IOrderService, OrderService>();
+builder.Services.AddTransient<IExamService, ExamService>();
 #endregion
 
 var app = builder.Build();

@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MiladDarabzadeh.Core\MiladDarabzadeh.Core.csproj" />
     <ProjectReference Include="..\MiladDarabzadeh.Data\MiladDarabzadeh.Data.csproj" />
   </ItemGroup>
 
