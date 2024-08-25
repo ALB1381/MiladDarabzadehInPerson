@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MiladDarabzadeh.Data.Context;
 
@@ -11,9 +12,11 @@ using MiladDarabzadeh.Data.Context;
 namespace MiladDarabzadeh.Data.Migrations
 {
     [DbContext(typeof(MiladContext))]
-    partial class MiladContextModelSnapshot : ModelSnapshot
+    [Migration("20240825135214_Mig-001")]
+    partial class Mig001
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

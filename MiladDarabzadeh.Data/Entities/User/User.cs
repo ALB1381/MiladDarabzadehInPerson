@@ -1,4 +1,5 @@
-﻿using MiladDarabzadeh.Data.Entities.Course;
+﻿using Microsoft.EntityFrameworkCore;
+using MiladDarabzadeh.Data.Entities.Course;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -67,7 +68,8 @@ namespace MiladDarabzadeh.Data.Entities.User
 
         public DateOnly? BirthDate { get; set; }
 
-        public bool IsActived { get; set; }
+        public bool IsPhoneNumberActived { get; set; }
+        public bool IsEmailActived { get; set; }
 
         #endregion
         

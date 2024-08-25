@@ -114,7 +114,18 @@ namespace MiladDarabzadeh.Data.Context
                 new Role() { RoleId = 2, RoleTitle = "Student" }
                 );
 
-
+            modelBuilder.Entity<User>()
+           .HasIndex(u => u.UserEmail)
+           .IsUnique();
+            modelBuilder.Entity<User>()
+          .HasIndex(u => u.UserName)
+          .IsUnique();
+            modelBuilder.Entity<User>()
+         .HasIndex(u => u.UserPhoneNumber)
+         .IsUnique();
+            modelBuilder.Entity<Course>().HasIndex(u => u.CourseName).IsUnique();
+            modelBuilder.Entity<Course>().HasIndex(u => u.CourseUrl).IsUnique();
+            modelBuilder.Entity<Course>().HasIndex(u => u.DemoFileName).IsUnique();
             modelBuilder.Entity<Entities.User.User>().HasData(
              new Entities.User.User()
              {
@@ -127,7 +138,8 @@ namespace MiladDarabzadeh.Data.Context
                  UserActiveCodeForEmail = "0569d3e33ac94bcc8c5ee4f93320db45",
                  UserActiveCodeForPhoneNumber = "0569d3e33ac94bcc8c5ee4f93320db45",
                  UserPassword = "62-D5-ED-C9-B0-AD-74-B5-AE-96-2E-5F-7F-C7-91-51",
-                 IsActived = true,
+                 IsPhoneNumberActived = true,
+                 IsEmailActived = true,
                  RoleId = 1,
                  UserNandF = "Milad Darabzadeh"
              },
@@ -142,11 +154,13 @@ namespace MiladDarabzadeh.Data.Context
                  UserActiveCodeForEmail = "c53eac7994034d13a36e475e1e00fcac",
                  UserActiveCodeForPhoneNumber = "c53eac7994034d13a36e475e1e00fcac",
                  UserPassword = "0C-0B-33-26-C9-5A-66-D7-37-7A-0A-2F-75-DA-AC-34",
-                 IsActived = true,
+                 IsPhoneNumberActived = true,
+                 IsEmailActived = true,
                  RoleId = 1,
                  UserNandF = "Ali Barzegar"
              }
              );
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
